@@ -1,10 +1,12 @@
-package com.civilization.otherscript;
+/*package com.civilization.otherscript;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 public class ImageDragTest extends JPanel
 {
-    static int frame_width = 600;
+ 
+	private static final long serialVersionUID = 1L;
+	static int frame_width = 600;
     static int frame_height = 300;
         
     PicPanel pic = null;
@@ -125,4 +127,4 @@ class PicPanel extends JPanel
     {
         g.drawImage(im,0,0,p_width,p_height,null);
     }
-}
+}*/
