@@ -28,7 +28,6 @@ public class MapView extends JFrame {
 				.addGap(0, 543, Short.MAX_VALUE)
 		);
 		backgroundJPanel.setLayout(gl_contentPane);
-
 	}
 
 	public BackgroundJPanel getBackgroundJPanel() {

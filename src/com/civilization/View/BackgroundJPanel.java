@@ -15,12 +15,24 @@ public class BackgroundJPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	// 背静图片
 	private Image backgroundImage;
-	// 背景图片的X坐标
-	private int backgroundX;
-	// 背景图片的Y坐标
-	private int backgroundY;
+	//
+	private int initDrawX;
+	//
+	private int intiDrawY;
+	// 绘制起点的X坐标
+	private int drawX = 0;
+	// 绘制起点的Y坐标
+	private int drawY = 0;
 	// 背景图片缩放比例
 	private float backgroundScale = 1;
+	//
+	private int mapSizeX = 2;
+	//
+	private int mapSizeY = 2;
+
+	public BackgroundJPanel() {
+
+	}
 
 	protected void paintComponent(Graphics g) {
 
@@ -28,20 +40,25 @@ public class BackgroundJPanel extends JPanel {
 	}
 
 	// 画图背景图片
+
 	private void drawBackground(Graphics graphics) {
 		if (backgroundImage != null) {
-			graphics.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), null);
-			/*graphics.drawImage(backgroundImage, (getWidth() - backgroundImage.getWidth(null)) / 2,
-					(getHeight() - backgroundImage.getHeight(null)) / 2, null);*/
+			// graphics.translate(200, 200);
+			graphics.drawImage(backgroundImage, drawX, drawY, getWidth() * mapSizeX, getHeight() * mapSizeY, null);
 		}
 	}
 
-	public void setBackgroundX(int backgroundX) {
-		this.backgroundX = backgroundX;
+	public int getDrawX() {
+		return drawX;
 	}
 
-	public void setBackgroundY(int backgroundY) {
-		this.backgroundY = backgroundY;
+	public int getDrawY() {
+		return drawY;
+	}
+
+	public void moveDrawPoint(int x, int y) {
+		drawX = initDrawX + x;
+		drawY = intiDrawY + y;
 	}
 
 	public void setBackgroundScale(float backgroundScale) {
@@ -50,6 +67,14 @@ public class BackgroundJPanel extends JPanel {
 
 	public void setBackgroundImage(String backgroundURL) {
 		this.backgroundImage = new ImageIcon(backgroundURL).getImage();
+	}
+
+	public void initData() {
+		initDrawX = -getWidth() / mapSizeX;
+		intiDrawY = -getHeight() / mapSizeY;
+		drawX = initDrawX;
+		drawY = intiDrawY;
+
 	}
 
 }

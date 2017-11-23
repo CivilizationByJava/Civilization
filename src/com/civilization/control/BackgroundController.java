@@ -28,6 +28,9 @@ public class BackgroundController {
 	boolean inBackground = false;
 
 	public void initBackGroundDraw() {
+
+		mapView.getBackgroundJPanel().initData();
+
 		backgroundX = (int) ((mapView.getWidth() - mapView.getBackgroundJPanel().getWidth()) / 2);
 		backgroundY = (int) ((mapView.getHeight() - mapView.getBackgroundJPanel().getHeight()) / 2);
 
@@ -36,13 +39,9 @@ public class BackgroundController {
 		// 鼠标动作 监听器 注册
 		mapView.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				// 检测 落点 是否在图片上,只有落点在图片上时 才起作
-				if (inPicBounds(e.getX(), e.getY())) {
-					beginX = e.getX();
-					beginY = e.getY();
-					inBackground = true;
-				}
-				// 记录当前坐标
+				beginX = e.getX();
+				beginY = e.getY();
+				inBackground = true;
 			}
 
 			// 释放
@@ -54,25 +53,43 @@ public class BackgroundController {
 		// 鼠标移动 监听器 注册
 		mapView.addMouseMotionListener(new MouseMotionAdapter() {
 			public void mouseDragged(MouseEvent e) {
-				if (inBackground && checkPoint(e.getX(), e.getY())) {
-					// 边界 检查
-					backgroundX = backgroundX - (beginX - e.getX());
-					backgroundY = backgroundY - (beginY - e.getY());
-					// System.out.println("pic_x=" + pic_x);
+
+				int changeX = beginX - e.getX();
+				int chanegY = beginY - e.getY();
+				if (inBackground) {
+					backgroundX -= changeX;
+					backgroundY -= chanegY;
 					beginX = e.getX();
 					beginY = e.getY();
-					mapView.getBackgroundJPanel().setLocation(backgroundX, backgroundY);
+
+					mapView.getBackgroundJPanel().moveDrawPoint(backgroundX, backgroundY);
+					if (isInBounds()) {
+						mapView.getBackgroundJPanel().repaint();
+					} else {
+						backgroundX += changeX;
+						backgroundY += chanegY;
+						mapView.getBackgroundJPanel().moveDrawPoint(-backgroundX, -backgroundY);
+					}
 				}
+
 			}
 		});
 	}
 
-	// 检测 点(px,py) 是否在图片上
-	private boolean inPicBounds(int px, int py) {
-		if (px >= backgroundX && px <= backgroundX + mapView.getBackgroundJPanel().getWidth() && py >= backgroundY
-				&& py <= backgroundY + mapView.getBackgroundJPanel().getHeight())
+	// 检测 点(x,y) 是否在图片上
+	private boolean isInBounds() {
+		//System.out.println(mapView.getBackgroundJPanel().getDrawX());
+		System.out.println(mapView.getBackgroundJPanel().getDrawY());
+		//System.out.println(mapView.getWidth());
+		 System.out.println(mapView.getHeight());
+		if (mapView.getBackgroundJPanel().getDrawX() > -mapView.getWidth()
+				&& mapView.getBackgroundJPanel().getDrawX() < 0
+				&& mapView.getBackgroundJPanel().getDrawY() > -mapView.getHeight()+30
+				&& mapView.getBackgroundJPanel().getDrawY() < 0) {
+
 			return true;
-		else
+
+		} else
 			return false;
 	}
 
