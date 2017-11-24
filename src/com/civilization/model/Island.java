@@ -17,6 +17,31 @@ public class Island {
 	private Point Island_X;
 	//岛屿的Y坐标
 	private Point Island_Y;
+	//岛屿的占领者:player1,player2,中立 三种
+	private String HostOfIsland;
+	//岛屿上玩家军队的种类:ship1,ship3,ship3三种
+	private String Player_Army_Kind;
+	//岛屿上玩家军队的数量
+	private int Player_Army_Num;
+	public String getHostOfIsland() {
+		return HostOfIsland;
+	}
+	public void setHostOfIsland(String hostOfIsland) {
+		HostOfIsland = hostOfIsland;
+	}
+	public String getPlayer_Army_Kind() {
+		return Player_Army_Kind;
+	}
+	public void setPlayer_Army_Kind(String player_Army_Kind) {
+		Player_Army_Kind = player_Army_Kind;
+	}
+	public int getPlayer_Army_Num() {
+		return Player_Army_Num;
+	}
+	public void setPlayer_Army_Num(int player_Army_Num) {
+		Player_Army_Num = player_Army_Num;
+	}
+	
 	public String getIsland_Kinds() {
 		return Island_Kinds;
 	}
@@ -52,6 +77,17 @@ public class Island {
 	}
 	public void setIsland_Y(Point island_Y) {
 		Island_Y = island_Y;
+	}
+	//尚未设定每种岛的具体收入，所以用123代替，我觉得大概是主岛最高，大岛次之，小岛最少
+	public int IslandMoneyPerRound(String IslandKind) {
+		int gettedMoney = 0;
+		switch(IslandKind)
+		{
+		case "Main":gettedMoney=1;break;
+		case "Big":gettedMoney=2;break;
+		case "Small":gettedMoney=3;break;
+		}
+		return gettedMoney;
 	}
 	
 }
