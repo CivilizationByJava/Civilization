@@ -83,14 +83,13 @@ public class BackgroundController {
 			
 			@Override
 			public void mouseWheelMoved(MouseWheelEvent e) {
-				// TODO Auto-generated method stub
 
 				if(e.getWheelRotation()==-1){
 					v+=0.1;
 					mapView.getBackgroundJPanel().setValue(v);
 					//System.out.println(v);
 				}
-				if(e.getWheelRotation()==1&&v>0.99){
+				if(e.getWheelRotation()==1&&v>0.5){
 					v-=0.1;
 					mapView.getBackgroundJPanel().setValue(v);
 				}
@@ -101,28 +100,16 @@ public class BackgroundController {
 	
 	// 检测 点(x,y) 是否在图片上
 	private boolean isInBounds() {
-		//System.out.println(mapView.getBackgroundJPanel().getDrawX());
-		System.out.println(mapView.getBackgroundJPanel().getDrawY());
-		//System.out.println(mapView.getWidth());
-		// System.out.println(mapView.getHeight());
-		if (mapView.getBackgroundJPanel().getDrawX() > -mapView.getWidth()
+		
+		if (mapView.getBackgroundJPanel().getDrawX() > -mapView.getBackgroundJPanel().getWidth()
 				&& mapView.getBackgroundJPanel().getDrawX() < 0
-				&& mapView.getBackgroundJPanel().getDrawY() > -mapView.getHeight()+30
+				&& mapView.getBackgroundJPanel().getDrawY() > -mapView.getBackgroundJPanel().getHeight()
 				&& mapView.getBackgroundJPanel().getDrawY() < 0) {
 
 			return true;
 
 		} else
 			return false;
-	}
-
-	// 越界 检查
-	private boolean checkPoint(int px, int py) {
-		if (px < 0 || py < 0)
-			return false;
-		if (px > mapView.getWidth() || py > mapView.getHeight())
-			return false;
-		return true;
 	}
 
 	public void initBackGroundControler() {
