@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,8 +24,11 @@ public class BackgroundController {
 	private int backgroundY;
 
 	// 前一个位置
-	int beginX = 0;
-	int beginY = 0;
+	private int beginX = 0;
+
+
+	private int beginY = 0;
+	private float v = 1;
 
 	boolean inBackground = false;
 
@@ -74,32 +79,37 @@ public class BackgroundController {
 
 			}
 		});
-	}
+		mapView.addMouseWheelListener(new MouseWheelListener() {
+			
+			@Override
+			public void mouseWheelMoved(MouseWheelEvent e) {
 
+				if(e.getWheelRotation()==-1){
+					v+=0.1;
+					mapView.getBackgroundJPanel().setValue(v);
+					//System.out.println(v);
+				}
+				if(e.getWheelRotation()==1&&v>0.5){
+					v-=0.1;
+					mapView.getBackgroundJPanel().setValue(v);
+				}
+				mapView.getBackgroundJPanel().repaint();
+			}
+		});
+	}
+	
 	// 检测 点(x,y) 是否在图片上
 	private boolean isInBounds() {
-		//System.out.println(mapView.getBackgroundJPanel().getDrawX());
-		System.out.println(mapView.getBackgroundJPanel().getDrawY());
-		//System.out.println(mapView.getWidth());
-		 System.out.println(mapView.getHeight());
-		if (mapView.getBackgroundJPanel().getDrawX() > -mapView.getWidth()
+		
+		if (mapView.getBackgroundJPanel().getDrawX() > -mapView.getBackgroundJPanel().getWidth()
 				&& mapView.getBackgroundJPanel().getDrawX() < 0
-				&& mapView.getBackgroundJPanel().getDrawY() > -mapView.getHeight()+30
+				&& mapView.getBackgroundJPanel().getDrawY() > -mapView.getBackgroundJPanel().getHeight()
 				&& mapView.getBackgroundJPanel().getDrawY() < 0) {
 
 			return true;
 
 		} else
 			return false;
-	}
-
-	// 越界 检查
-	private boolean checkPoint(int px, int py) {
-		if (px < 0 || py < 0)
-			return false;
-		if (px > mapView.getWidth() || py > mapView.getHeight())
-			return false;
-		return true;
 	}
 
 	public void initBackGroundControler() {
@@ -122,3 +132,4 @@ public class BackgroundController {
 	}
 
 }
+	

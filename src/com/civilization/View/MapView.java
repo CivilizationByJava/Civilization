@@ -5,6 +5,10 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JFrame;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JPanel;
+import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MapView extends JFrame {
 
@@ -18,16 +22,7 @@ public class MapView extends JFrame {
 		backgroundJPanel = new BackgroundJPanel();
 		backgroundJPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(backgroundJPanel);
-		GroupLayout gl_contentPane = new GroupLayout(backgroundJPanel);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 863, Short.MAX_VALUE)
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 543, Short.MAX_VALUE)
-		);
-		backgroundJPanel.setLayout(gl_contentPane);
+		backgroundJPanel.setLayout(null);
 	}
 
 	public BackgroundJPanel getBackgroundJPanel() {

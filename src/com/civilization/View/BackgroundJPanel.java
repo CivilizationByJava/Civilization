@@ -6,6 +6,8 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import com.civilization.control.BackgroundController;
+
 /**
  * @author Administrator
  *
@@ -29,6 +31,12 @@ public class BackgroundJPanel extends JPanel {
 	private int mapSizeX = 2;
 	//
 	private int mapSizeY = 2;
+	//
+	private float value=1f;
+
+	public void setValue(float value) {
+		this.value = value;	//value指图片放大为原来的value倍
+	}
 
 	public BackgroundJPanel() {
 
@@ -43,8 +51,15 @@ public class BackgroundJPanel extends JPanel {
 
 	private void drawBackground(Graphics graphics) {
 		if (backgroundImage != null) {
-			// graphics.translate(200, 200);
-			graphics.drawImage(backgroundImage, drawX, drawY, getWidth() * mapSizeX, getHeight() * mapSizeY, null);
+			
+			System.out.println(drawX);
+			System.out.println(drawY);
+
+			
+			int width= (int) (getWidth() * mapSizeX*value);	//放大value倍后的宽
+			int height=(int) (getHeight() * mapSizeX*value);  //放大value倍后的高
+
+			graphics.drawImage(backgroundImage, drawX, drawY,width, height, null);
 		}
 	}
 
@@ -59,6 +74,7 @@ public class BackgroundJPanel extends JPanel {
 	public void moveDrawPoint(int x, int y) {
 		drawX = initDrawX + x;
 		drawY = intiDrawY + y;
+		//System.out.println(initDrawX);
 	}
 
 	public void setBackgroundScale(float backgroundScale) {
@@ -74,7 +90,7 @@ public class BackgroundJPanel extends JPanel {
 		intiDrawY = -getHeight() / mapSizeY;
 		drawX = initDrawX;
 		drawY = intiDrawY;
-
+		System.out.println(getWidth());
 	}
 
 }
