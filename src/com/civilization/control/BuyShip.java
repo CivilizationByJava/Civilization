@@ -27,8 +27,7 @@ public class BuyShip {
 		case 3:
 			if (p.getMoney() >= s3.getShip3_Money()) {
 				p.setShip3_Num(p.getShip3_Num() + BuyShipNum);
-				p.setMoney(p.getMoney()-s3.getShip3_Money());
-			} else {
+				p.setMoney(p.getMoney()-s3.getShip3_Money());} else {
 				/* 告诉玩家钱不够买不了 */}
 			break;
 		}
