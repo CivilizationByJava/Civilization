@@ -79,23 +79,7 @@ public class BackgroundController {
 
 			}
 		});
-		mapView.addMouseWheelListener(new MouseWheelListener() {
-			
-			@Override
-			public void mouseWheelMoved(MouseWheelEvent e) {
-
-				if(e.getWheelRotation()==-1){
-					v+=0.1;
-					mapView.getBackgroundJPanel().setValue(v);
-					//System.out.println(v);
-				}
-				if(e.getWheelRotation()==1&&v>0.5){
-					v-=0.1;
-					mapView.getBackgroundJPanel().setValue(v);
-				}
-				mapView.getBackgroundJPanel().repaint();
-			}
-		});
+		
 	}
 	
 	// 检测 点(x,y) 是否在图片上

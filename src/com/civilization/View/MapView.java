@@ -20,7 +20,7 @@ public class MapView extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 552, 369);
 		backgroundJPanel = new BackgroundJPanel();
-		backgroundJPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		//backgroundJPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(backgroundJPanel);
 		backgroundJPanel.setLayout(null);
 	}
