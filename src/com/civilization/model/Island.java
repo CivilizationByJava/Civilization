@@ -10,7 +10,7 @@ public class Island {
 	//岛屿每回合所能提供的金钱
 	private int Island_Gold;
 	//岛屿上初始中立敌对单位的种类
-	private String Enemy_Kinds;
+	private int Enemy_Kinds;
 	//岛屿上初始中立敌对单位的数量
 	private int Enemy_Num;
 	//岛屿的X坐标
@@ -19,8 +19,8 @@ public class Island {
 	private Point Island_Y;
 	//岛屿的占领者:player1,player2,中立 三种
 	private String HostOfIsland;
-	//岛屿上玩家军队的种类:ship1,ship3,ship3三种
-	private String Player_Army_Kind;
+	//岛屿上玩家军队的种类:1,2,3三种
+	private int Player_Army_Kind;
 	//岛屿上玩家军队的数量
 	private int Player_Army_Num;
 	public String getHostOfIsland() {
@@ -29,10 +29,10 @@ public class Island {
 	public void setHostOfIsland(String hostOfIsland) {
 		HostOfIsland = hostOfIsland;
 	}
-	public String getPlayer_Army_Kind() {
+	public int getPlayer_Army_Kind() {
 		return Player_Army_Kind;
 	}
-	public void setPlayer_Army_Kind(String player_Army_Kind) {
+	public void setPlayer_Army_Kind(int player_Army_Kind) {
 		Player_Army_Kind = player_Army_Kind;
 	}
 	public int getPlayer_Army_Num() {
@@ -54,10 +54,10 @@ public class Island {
 	public void setIsland_Gold(int island_Gold) {
 		Island_Gold = island_Gold;
 	}
-	public String getEnemy_Kinds() {
+	public int getEnemy_Kinds() {
 		return Enemy_Kinds;
 	}
-	public void setEnemy_Kinds(String enemy_Kinds) {
+	public void setEnemy_Kinds(int enemy_Kinds) {
 		Enemy_Kinds = enemy_Kinds;
 	}
 	public int getEnemy_Num() {
