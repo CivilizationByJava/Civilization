@@ -1,14 +1,19 @@
 package com.civilization.control;
 
 import java.awt.EventQueue;
+import java.awt.Point;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
+import javax.swing.JButton;
+
 import com.civilization.View.BackgroundJPanel;
 import com.civilization.View.MapView;
+
+import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 
 //控制背景图片
 public class BackgroundController {
@@ -21,7 +26,6 @@ public class BackgroundController {
 
 	private int backgroundX;
 	private int backgroundY;
-	private int a=0,b=0;
 
 	// 前一个位置
 	private int beginX = 0;
@@ -33,8 +37,9 @@ public class BackgroundController {
 
 	public void initBackGroundDraw() {
 
-		backgroundX = (int) ((mapView.getWidth() - mapView.getBackgroundJPanel().getWidth()) / 2);
-		backgroundY = (int) ((mapView.getHeight() - mapView.getBackgroundJPanel().getHeight()) / 2);
+		//backgroundX = (int) ((mapView.getWidth() - mapView.getBackgroundJPanel().getWidth()) / 2);
+		//backgroundY = (int) ((mapView.getHeight() - mapView.getBackgroundJPanel().getHeight()) / 2);
+		mapView.getBackgroundJPanel().initData();
 
 		mapView.getBackgroundJPanel().setLocation(backgroundX-10, backgroundY-24); // 定位
 
@@ -51,6 +56,7 @@ public class BackgroundController {
 				inBackground = false;
 			}
 		});
+		
 		
 		//
 		mapView.addComponentListener(new ComponentAdapter() {
@@ -79,19 +85,31 @@ public class BackgroundController {
 				
 					mapView.getBackgroundJPanel().moveDrawPoint(backgroundX, backgroundY);
 					if (isInBounds()) {
+						for(JButton island:mapView.getIsland()){
+							Point position=island.getLocation();
+							island.setLocation(new Point(position.x-changeX,position.y-chanegY));
+					}
 						mapView.getBackgroundJPanel().repaint();
+						
 					} else {
 						backgroundX += changeX;
 						backgroundY += chanegY;
 						mapView.getBackgroundJPanel().moveDrawPoint(-backgroundX, -backgroundY);
 					}	
-					for(int i=0;i<mapView.getIslandNum();i++){
-							mapView.getIsland().get(i).setLocation(backgroundX-200+i*200,backgroundY-100+i*100);
-					}
 				}
 		
 			}
 		});
+		
+		//岛屿Button按钮监听事件
+		for(JButton island:mapView.getIsland()) {
+			island.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					//点击岛屿
+				}
+			});
+		}
 		
 	}
 	
@@ -115,6 +133,7 @@ public class BackgroundController {
 	//	mapView.setButton();
 		initBackGroundDraw();
 	}
+
 
 	// 初始化地图
 	private void initMapView() {

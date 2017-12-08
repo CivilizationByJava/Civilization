@@ -1,50 +1,48 @@
 package com.civilization.View;
 
-import javax.swing.GroupLayout;
-import javax.swing.ImageIcon;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JFrame;
-import javax.swing.border.EmptyBorder;
-
-import org.omg.CORBA.PUBLIC_MEMBER;
-
-import com.sun.prism.Graphics;
-import com.sun.prism.Image;
-
-import sun.security.x509.PrivateKeyUsageExtension;
-
-import javax.swing.JPanel;
-import javax.swing.JButton;
-
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.GraphicsEnvironment;
-import java.awt.event.ActionListener;
+import java.awt.Image;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.awt.event.ActionEvent;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import javax.swing.border.EmptyBorder;
+
+import org.omg.CORBA.PRIVATE_MEMBER;
+
+import com.civilization.model.Island;
+import com.sun.org.apache.xerces.internal.impl.xpath.XPath.Step;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MapView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private int islandNum=6;
+	private int islandNum = 6;
 	//
 	private BackgroundJPanel backgroundJPanel;
 
-	private List<JButton> island=new ArrayList<>();
-	
-	public int getIslandNum(){
+	private List<JButton> island = new ArrayList<>();
+
+	public int getIslandNum() {
 		return islandNum;
 	}
-	
-	public List<JButton> getIsland(){
+
+	public List<JButton> getIsland() {
 		return this.island;
 	}
+
 	private JLabel player1Name;
 	private JLabel player1Money;
 	private JLabel player1Islands;
@@ -53,6 +51,8 @@ public class MapView extends JFrame {
 	private JLabel player2Money;
 	private JLabel player2Islands;
 	//
+	private List<Island> islandsMode=new ArrayList<>();
+
 	private JPanel player2Area;
 	//
 	private JPanel player1Area;
@@ -263,10 +263,26 @@ public class MapView extends JFrame {
 		setShopView();
 	}
 
-	public JPanel getPlayer2Area() {
-		return player2Area;
-	}
 
+	public void setButton() {
+		addIsland(new Point(-800, 450), new Point(200, 200), 1);
+		addIsland(new Point(-560, -200), new Point(200, 200), 1);
+		addIsland(new Point(-500, 400), new Point(200, 200), 1);
+		addIsland(new Point(-560, 900), new Point(200, 200), 1);
+		addIsland(new Point(-100, 400), new Point(200, 200), 1);
+		addIsland(new Point(-100, 900), new Point(200, 200), 1);
+		addIsland(new Point(300, 450), new Point(200, 200), 1);
+		addIsland(new Point(900, 450), new Point(200, 200), 1);
+		addIsland(new Point(1500, 450), new Point(200, 200), 1);
+		addIsland(new Point(1900, 400), new Point(200, 200), 1);
+		addIsland(new Point(1900, 900), new Point(200, 200), 1);
+		addIsland(new Point(2240, -200), new Point(200, 200), 1);
+		addIsland(new Point(2300, 450), new Point(200, 200), 1);
+		addIsland(new Point(2240, 900), new Point(200, 200), 1);
+		addIsland(new Point(2600, 450), new Point(200, 200), 1);
+	}
+		
+		
 	public JPanel getPlayer1Area() {
 		return player1Area;
 	}
@@ -276,30 +292,32 @@ public class MapView extends JFrame {
 	}
 
 
-	public void setButton(){
-		for(int i=0;i<islandNum;i++){
-			
-			JButton button = new JButton("island"+(i+1));
-			button.setBorderPainted(false);
-			button.setBackground(Color.WHITE);
-			
-			button.setBounds(-200+200*i, -100+100*i,200, 200);
-			
-			button.setContentAreaFilled(false);
-			
-			setIcon("source/images/island"+(i+1)+".jpg",button);
-			island.add(button);
-			backgroundJPanel.add(button);
-		}
+	
+	
+	private void addIsland(Point position,Point size,int tag) {
+		JButton button = new JButton();
+		button.setBorderPainted(false);
+		button.setBackground(Color.WHITE);
+
+		button.setBounds(position.x,position.y,size.x,size.y);
+
+		button.setContentAreaFilled(false);
+		
+		setIcon("source/images/islands/island"+tag+".jpg", button);
+		island.add(button);
+		backgroundJPanel.add(button);
 	}
-	
-	public void setIcon(String Url,JButton button ){
-		ImageIcon icon=new ImageIcon(Url);	
-		java.awt.Image temp=icon.getImage().getScaledInstance(button.getWidth(),button.getHeight() , icon.getImage().SCALE_DEFAULT);
-		icon=new ImageIcon(temp);
+
+	public void setIcon(String Url, JButton button) {
+		ImageIcon icon = new ImageIcon(Url);
+		icon.getImage();
+		java.awt.Image temp = icon.getImage().getScaledInstance(button.getWidth(), button.getHeight(),
+				Image.SCALE_DEFAULT);
+		icon = new ImageIcon(temp);
 		button.setIcon(icon);
-	
-		}
+
+	}
+
 	public BackgroundJPanel getBackgroundJPanel() {
 		return backgroundJPanel;
 	}

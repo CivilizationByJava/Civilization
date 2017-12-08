@@ -9,7 +9,6 @@ public class Music {
 
 		// 游戏开始界面的bgm：lost in the nowhere
 		java.net.URL music_Begin = getClass().getResource("../lostInTheNowhere.wav");
-System.out.println(music_Begin);
 		AudioClip sound = java.applet.Applet.newAudioClip(music_Begin);
 		// sound.play();
 		sound.loop();
