@@ -13,10 +13,8 @@ public class Island {
 	private int Enemy_Kinds;
 	//岛屿上初始中立敌对单位的数量
 	private int Enemy_Num;
-	//岛屿的X坐标
-	private Point Island_X;
-	//岛屿的Y坐标
-	private Point Island_Y;
+	//岛链等级，只有相邻的两个岛链上的岛才能互相伤害
+    private int island_Level;
 	//岛屿的占领者:player1,player2,中立 三种
 	private String HostOfIsland;
 	//岛屿上玩家军队的种类:1,2,3三种
@@ -66,18 +64,15 @@ public class Island {
 	public void setEnemy_Num(int enemy_Num) {
 		Enemy_Num = enemy_Num;
 	}
-	public Point getIsland_X() {
-		return Island_X;
+	public int getIsland_Level() {
+		return island_Level;
 	}
-	public void setIsland_X(Point island_X) {
-		Island_X = island_X;
+	public void setIsland_Level(int island_Level) {
+		this.island_Level = island_Level;
 	}
-	public Point getIsland_Y() {
-		return Island_Y;
-	}
-	public void setIsland_Y(Point island_Y) {
-		Island_Y = island_Y;
-	}
+	
+
+	
 	//尚未设定每种岛的具体收入，所以用123代替，我觉得大概是主岛最高，大岛次之，小岛最少
 	public int IslandMoneyPerRound(String IslandKind) {
 		int gettedMoney = 0;
@@ -89,6 +84,5 @@ public class Island {
 		}
 		return gettedMoney;
 	}
-	//T 判断两个岛之间距离
 	
 }

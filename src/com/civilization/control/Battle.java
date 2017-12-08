@@ -19,13 +19,17 @@ public class Battle {
 	{
 		// 攻击方决定进攻地点并派出军队
 		// 根据Island类中判断距离的函数判断距离，只有距离最近的两个岛才能互相伤害，函数还没写
-		if (I_atk.getPlayer_Army_Num() >= Army_Num) {
+		if(islandBattle(I_atk.getIsland_Level(),I_def.getIsland_Level()))
+		{if (I_atk.getPlayer_Army_Num() >= Army_Num) {
 			Atk_Army_Num = Army_Num;
 		} else {
 			Atk_Army_Num = I_atk.getPlayer_Army_Num();
 		}
 		return I_atk.getPlayer_Army_Kind();
 	}
+		//距离太远时返回0，不能发动进攻
+		return 0;
+		}
 //参数：                                          防守方岛屿
 	public int Player_Def_Army(Island I_def) {
 		// 防御方派出军队（自动五个，少于五个有几个派几个）
@@ -122,5 +126,11 @@ public class Battle {
 	public void setDef_Army_Num(int def_Army_Num) {
 		Def_Army_Num = def_Army_Num;
 	}
+	 public boolean islandBattle(int islandLevel_1,int islandLevel_2) {
+	    	if(islandLevel_1-islandLevel_2<=1||islandLevel_2-islandLevel_1<=1) {
+	    		return true;
+	    	}
+	    	return false;
+	    }
 
 }
