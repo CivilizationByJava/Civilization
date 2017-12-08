@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
+import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
 import org.omg.CORBA.PRIVATE_MEMBER;
@@ -25,6 +25,11 @@ import com.sun.org.apache.xerces.internal.impl.xpath.XPath.Step;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JScrollBar;
+import javax.swing.JTextField;
+import javax.swing.JSpinner;
 
 public class MapView extends JFrame {
 
@@ -67,22 +72,56 @@ public class MapView extends JFrame {
 	private JButton bomb;
 	private JLabel label;
 	private JPanel panel;
+	private JPanel attackPanel;
+	private JButton cancelbutton;
+	private JButton attackbutton;
+	private JButton ship1Icon;
+	private JButton ship3Icon;
+	private JButton ship2Icon;
+	private JLabel ship1Num;
+	private JLabel ship3Num;
+	private JLabel ship2Num;
+	private JSpinner spinner;
 	
+	public void showAttackPanel(int x,int y){
+		attackPanel.setLocation(x,y);
+		attackPanel.setVisible(true);
+		
+	}
+	public void setAttackPanelView(){
+		attackPanel.setVisible(false);
+		ship1Icon.setContentAreaFilled(false);
+		ship1Icon.setBackground(Color.WHITE);
+		setIcon("source/images/ship1.png",ship1Icon);
+		attackPanel.add(ship1Icon);
+		ship2Icon.setContentAreaFilled(false);
+		ship2Icon.setBackground(Color.WHITE);
+		setIcon("source/images/ship2.png",ship2Icon);
+		attackPanel.add(ship2Icon);
+		ship3Icon.setContentAreaFilled(false);
+		ship3Icon.setBackground(Color.WHITE);
+		setIcon("source/images/ship3.png",ship3Icon);
+		attackPanel.add(ship3Icon);
+		attackPanel.setOpaque(getIgnoreRepaint());
+		cancelbutton.setContentAreaFilled(false);
+		attackbutton.setContentAreaFilled(false);
+		attackPanel.add(spinner);
+	}
 	public void setShopView(){
 		panel.setVisible(false);
 		panel.setOpaque(false);
 		
 		ship1.setContentAreaFilled(false);
 		ship1.setBackground(Color.WHITE);
-		setIcon("source/images/ship1.jpg",ship1);
+		setIcon("source/images/ship1.png",ship1);
 		panel.add(ship1);
 		ship2.setContentAreaFilled(false);
 		ship2.setBackground(Color.WHITE);
-		setIcon("source/images/ship2.jpg",ship2);
+		setIcon("source/images/ship2.png",ship2);
 		panel.add(ship2);
 		ship3.setContentAreaFilled(false);
 		ship3.setBackground(Color.WHITE);
-		setIcon("source/images/ship.png",ship3);
+		setIcon("source/images/ship3.png",ship3);
 		System.out.println(ship3);
 		panel.add(ship3);
 		bomb.setContentAreaFilled(false);
@@ -129,17 +168,21 @@ public class MapView extends JFrame {
 		battleArea.setVisible(false);
 		
 		panel = new JPanel();
+		
+		attackPanel = new JPanel();
 		GroupLayout gl_backgroundJPanel = new GroupLayout(backgroundJPanel);
 		gl_backgroundJPanel.setHorizontalGroup(
 			gl_backgroundJPanel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_backgroundJPanel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(player1Area, GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+					.addComponent(attackPanel, GroupLayout.PREFERRED_SIZE, 194, GroupLayout.PREFERRED_SIZE)
+					.addGap(26)
+					.addComponent(player1Area, GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(battleArea, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+					.addComponent(battleArea, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(player2Area, GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
-					.addGap(50)
+					.addComponent(player2Area, GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 				.addComponent(playerInfo, GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE)
@@ -147,22 +190,69 @@ public class MapView extends JFrame {
 		gl_backgroundJPanel.setVerticalGroup(
 			gl_backgroundJPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_backgroundJPanel.createSequentialGroup()
+					.addComponent(playerInfo, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
 					.addGroup(gl_backgroundJPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_backgroundJPanel.createSequentialGroup()
-							.addGap(159)
-							.addGroup(gl_backgroundJPanel.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_backgroundJPanel.createSequentialGroup()
-									.addGap(50)
-									.addGroup(gl_backgroundJPanel.createParallelGroup(Alignment.LEADING)
-										.addComponent(battleArea, GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
-										.addComponent(player2Area, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)))
-								.addComponent(player1Area, GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)))
-						.addGroup(gl_backgroundJPanel.createSequentialGroup()
-							.addComponent(playerInfo, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+						.addGroup(Alignment.TRAILING, gl_backgroundJPanel.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)))
+							.addComponent(attackPanel, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE))
+						.addGroup(Alignment.TRAILING, gl_backgroundJPanel.createParallelGroup(Alignment.TRAILING)
+							.addGroup(gl_backgroundJPanel.createSequentialGroup()
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE))
+							.addGroup(gl_backgroundJPanel.createSequentialGroup()
+								.addGap(98)
+								.addGroup(gl_backgroundJPanel.createParallelGroup(Alignment.LEADING)
+									.addComponent(player2Area, Alignment.TRAILING, 0, 0, Short.MAX_VALUE)
+									.addComponent(battleArea, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+									.addComponent(player1Area, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)))))
 					.addContainerGap())
 		);
+		
+		cancelbutton = new JButton("cancel");
+		cancelbutton.setBounds(14, 157, 81, 27);
+		cancelbutton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		attackPanel.setLayout(null);
+		attackPanel.add(cancelbutton);
+		
+		attackbutton = new JButton("attack");
+		attackbutton.setBounds(117, 157, 81, 27);
+		attackPanel.add(attackbutton);
+		
+		ship1Icon = new JButton("New button");
+		ship1Icon.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		ship1Icon.setBounds(0, 13, 58, 44);
+		
+		
+		ship3Icon = new JButton("New button");
+		ship3Icon.setBounds(143, 13, 55, 44);
+		
+		
+		ship2Icon = new JButton("New button");
+		ship2Icon.setBounds(72, 13, 57, 44);
+		
+		
+		ship1Num = new JLabel("20");
+		ship1Num.setBounds(14, 70, 28, 18);
+		attackPanel.add(ship1Num);
+		
+		ship2Num = new JLabel("20");
+		ship2Num.setBounds(88, 70, 24, 18);
+		attackPanel.add(ship2Num);
+		
+		ship3Num = new JLabel("20");
+		ship3Num.setBounds(158, 70, 29, 18);
+		attackPanel.add(ship3Num);
+		
+		spinner = new JSpinner();
+		spinner.setBounds(84, 95, 46, 24);
+		spinner.setModel(new SpinnerNumberModel(5, 1, 8, 1));
+	//	attackPanel.add(spinner);
 		
 		lblNewLabel = new JLabel("shop");
 		lblNewLabel.addMouseListener(new MouseAdapter() {
@@ -261,6 +351,7 @@ public class MapView extends JFrame {
 		player2Area.setLayout(gl_player2Area);
 		backgroundJPanel.setLayout(gl_backgroundJPanel);
 		setShopView();
+		setAttackPanelView();
 	}
 
 
