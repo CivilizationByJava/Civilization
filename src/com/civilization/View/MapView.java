@@ -94,6 +94,10 @@ public class MapView extends JFrame {
 			ship3Num.setText(Integer.toString(island.getPlayer_Army_Num()));
 			ship2Num.setText("0");
 			ship1Num.setText("0");
+		}else {
+			ship2Num.setText("0");
+			ship1Num.setText("0");
+			ship3Num.setText("0");
 		}
 
 		//attackPanel.setLocation(x, y);
@@ -430,6 +434,8 @@ public class MapView extends JFrame {
 		addIsland(new Point(-900, 450), new Point(300, 300), 4);
 		Island island_1 = new Island("main", 0);
 		island_1.setHostOfIsland(game.getPlayer1());
+		island_1.setPlayer_Army_Kind(1);
+		island_1.setPlayer_Army_Num(4);
 		islandsMode.add(island_1);
 		addIsland(new Point(-560, -200), new Point(150, 150), 2);
 		Island island_2 = new Island("small", 1);
@@ -499,6 +505,8 @@ public class MapView extends JFrame {
 		addIsland(new Point(2500, 450), new Point(300, 300), 4);
 		Island island_15 = new Island("main", 8);
 		island_15.setHostOfIsland(game.getPlayer2());
+		island_15.setPlayer_Army_Kind(1);
+		island_15.setPlayer_Army_Num(4);
 		islandsMode.add(island_15);
 
 	}
