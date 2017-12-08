@@ -12,6 +12,7 @@ import javax.swing.JButton;
 
 import com.civilization.View.BackgroundJPanel;
 import com.civilization.View.MapView;
+import com.sun.javafx.sg.prism.web.NGWebView;
 
 import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 
@@ -30,13 +31,17 @@ public class BackgroundController {
 	// 前一个位置
 	private int beginX = 0;
 
+	//
+	private Point attackPanel;
 
 	private int beginY = 0;
 
 	boolean inBackground = false;
 
 	public void initBackGroundDraw() {
-
+		
+		mapView.showAttackPanel(-5000,-5000);
+		attackPanel=new Point(-5000, -5000);
 		//backgroundX = (int) ((mapView.getWidth() - mapView.getBackgroundJPanel().getWidth()) / 2);
 		//backgroundY = (int) ((mapView.getHeight() - mapView.getBackgroundJPanel().getHeight()) / 2);
 		mapView.getBackgroundJPanel().initData();
@@ -88,7 +93,9 @@ public class BackgroundController {
 						for(JButton island:mapView.getIsland()){
 							Point position=island.getLocation();
 							island.setLocation(new Point(position.x-changeX,position.y-chanegY));
-					}
+							//			
+						}
+						mapView.showAttackPanel(mapView.getAttackPanel().getLocation().x-changeX,mapView.getAttackPanel().getLocation().y-chanegY);
 						mapView.getBackgroundJPanel().repaint();
 						
 					} else {
@@ -106,7 +113,8 @@ public class BackgroundController {
 			island.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
-					//点击岛屿
+					//点击岛屿\
+					mapView.showAttackPanel(island.getLocation().x,island.getLocation().y+200);
 				}
 			});
 		}
