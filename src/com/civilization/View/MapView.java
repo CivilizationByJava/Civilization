@@ -25,6 +25,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.civilization.model.Island;
 
+
 public class MapView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
