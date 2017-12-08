@@ -57,7 +57,7 @@ public class MapView extends JFrame {
 	//
 	private JPanel player1Area;
 	private JPanel battleArea;
-	private JLabel lblNewLabel;
+	private JLabel shopButton;
 	private JButton ship1;
 	private JButton ship2;
 	private JButton ship3;
@@ -257,8 +257,9 @@ public class MapView extends JFrame {
 		spinner.setModel(new SpinnerNumberModel(2, 1, 5, 1));
 	//	attackPanel.add(spinner);
 		
-		lblNewLabel = new JLabel("shop");
-		lblNewLabel.addMouseListener(new MouseAdapter() {
+		shopButton = new JLabel("shop");
+		shopButton.setVisible(false);
+		shopButton.addMouseListener(new MouseAdapter() {
 			boolean bool=true;
 			public void mouseClicked(MouseEvent arg0) {
 				if(bool){
@@ -286,7 +287,7 @@ public class MapView extends JFrame {
 					.addGap(95)
 					.addComponent(player2Islands, GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
 					.addGap(107)
-					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+					.addComponent(shopButton, GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
 					.addGap(23))
 		);
 		gl_playerInfo.setVerticalGroup(
@@ -308,7 +309,7 @@ public class MapView extends JFrame {
 					.addGroup(gl_playerInfo.createParallelGroup(Alignment.BASELINE)
 						.addComponent(player2Money)
 						.addComponent(player2Islands)
-						.addComponent(lblNewLabel)))
+						.addComponent(shopButton)))
 		);
 		playerInfo.setLayout(gl_playerInfo);
 		
@@ -501,6 +502,10 @@ public class MapView extends JFrame {
 
 	public JButton getShip3() {
 		return ship3;
+	}
+
+	public JLabel getShopButton() {
+		return shopButton;
 	}
 	
 	

@@ -34,7 +34,6 @@ public class BackgroundController {
 
 	private int value;
 	//
-	private Point attackPanel;
 
 	private int beginY = 0;
 
@@ -52,7 +51,6 @@ public class BackgroundController {
 	public void initBackGroundDraw() {
 
 		mapView.showAttackPanel(-5000, -5000);
-		attackPanel = new Point(-5000, -5000);
 		// backgroundX = (int) ((mapView.getWidth() -
 		// mapView.getBackgroundJPanel().getWidth()) / 2);
 		// backgroundY = (int) ((mapView.getHeight() -
@@ -107,6 +105,7 @@ public class BackgroundController {
 							island.setLocation(new Point(position.x - changeX, position.y - chanegY));
 							//
 						}
+						
 						mapView.showAttackPanel(mapView.getAttackPanel().getLocation().x - changeX,
 								mapView.getAttackPanel().getLocation().y - chanegY);
 						mapView.getBackgroundJPanel().repaint();
@@ -128,6 +127,7 @@ public class BackgroundController {
 				public void mouseClicked(MouseEvent arg0) {
 					// 点击岛屿\
 					if (isAttack) {
+						mapView.getShopButton().setVisible(false);
 						clickedIsland = mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
 						// 数据
 						battle.BattleStart(lastClickIsland, clickedIsland, lastClickIsland.getPlayer_Army_Kind(),
@@ -136,6 +136,7 @@ public class BackgroundController {
 						// 图像
 
 					} else {
+						mapView.getShopButton().setVisible(true);
 						lastClickIsland = mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
 						mapView.setClickedIsland(clickedIsland);
 						mapView.showAttackPanel(island.getLocation().x, island.getLocation().y + 200);
