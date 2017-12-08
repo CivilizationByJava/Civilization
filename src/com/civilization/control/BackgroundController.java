@@ -1,14 +1,11 @@
 package com.civilization.control;
 
 import java.awt.EventQueue;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import com.civilization.View.MapView;
 
@@ -20,26 +17,23 @@ public class BackgroundController {
 	//
 	String backgroundURL = "source/images/background.jpg";
 
-	private int backgroundX;
-	private int backgroundY;
+	private int backgroundX=0;
+	private int backgroundY=0;
 
 	// 前一个位置
 	private int beginX = 0;
 
 
 	private int beginY = 0;
-	private float v = 1;
 
 	boolean inBackground = false;
 
 	public void initBackGroundDraw() {
 
-		mapView.getBackgroundJPanel().initData();
-
 		backgroundX = (int) ((mapView.getWidth() - mapView.getBackgroundJPanel().getWidth()) / 2);
 		backgroundY = (int) ((mapView.getHeight() - mapView.getBackgroundJPanel().getHeight()) / 2);
 
-		mapView.getBackgroundJPanel().setLocation(backgroundX, backgroundY); // 定位
+		mapView.getBackgroundJPanel().setLocation(backgroundX-10, backgroundY-24); // 定位
 
 		// 鼠标动作 监听器 注册
 		mapView.addMouseListener(new MouseAdapter() {
@@ -53,6 +47,19 @@ public class BackgroundController {
 			public void mouseReleased(MouseEvent e) {
 				inBackground = false;
 			}
+		});
+		
+		//
+		mapView.addComponentListener(new ComponentAdapter() {
+			
+			@Override
+			public void componentResized(ComponentEvent e){
+				backgroundX = (int) ((mapView.getWidth() - mapView.getBackgroundJPanel().getWidth()) / 2);
+				backgroundY = (int) ((mapView.getHeight() - mapView.getBackgroundJPanel().getHeight()) / 2);
+				mapView.getBackgroundJPanel().initData();
+				
+			}
+
 		});
 
 		// 鼠标移动 监听器 注册

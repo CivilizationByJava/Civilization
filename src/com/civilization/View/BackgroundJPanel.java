@@ -47,14 +47,9 @@ public class BackgroundJPanel extends JPanel {
 	private void drawBackground(Graphics graphics) {
 		if (backgroundImage != null) {
 			
-			System.out.println(drawX);
-			System.out.println(drawY);
-
-			
 			int width=  getWidth() * mapSizeX;	
 			int height=  getHeight() * mapSizeX;  
 			graphics.drawImage(backgroundImage, drawX, drawY,width, height, null);
-			System.out.println("repaint");
 			
 		}
 	}
@@ -70,7 +65,6 @@ public class BackgroundJPanel extends JPanel {
 	public void moveDrawPoint(int x, int y) {
 		drawX = initDrawX + x;
 		drawY = intiDrawY + y;
-		//System.out.println(initDrawX);
 	}
 
 	public void setBackgroundScale(float backgroundScale) {
@@ -83,12 +77,9 @@ public class BackgroundJPanel extends JPanel {
 
 	public void initData() {
 		initDrawX = -getWidth() / mapSizeX;
-		//initDrawX=0;
 		intiDrawY = -getHeight() / mapSizeY;
-		//intiDrawY=0;
 		drawX = initDrawX;
 		drawY = intiDrawY;
-		System.out.println(getWidth());
 	}
 
 }
