@@ -3,6 +3,7 @@ package com.civilization.View;
 import java.awt.Color;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
+
+import org.omg.CORBA.PRIVATE_MEMBER;
+
+import com.civilization.model.Island;
+import com.sun.org.apache.xerces.internal.impl.xpath.XPath.Step;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -42,6 +49,8 @@ public class MapView extends JFrame {
 	private JLabel player2Name;
 	private JLabel player2Money;
 	private JLabel player2Islands;
+	//
+	private List<Island> islandsMode=new ArrayList<>();
 
 	public MapView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -108,20 +117,37 @@ public class MapView extends JFrame {
 
 
 	public void setButton() {
-		for (int i = 0; i < islandNum; i++) {
+		addIsland(new Point(-800, 450), new Point(200, 200), 1);
+		addIsland(new Point(-560, -200), new Point(200, 200), 1);
+		addIsland(new Point(-500, 400), new Point(200, 200), 1);
+		addIsland(new Point(-560, 900), new Point(200, 200), 1);
+		addIsland(new Point(-100, 400), new Point(200, 200), 1);
+		addIsland(new Point(-100, 900), new Point(200, 200), 1);
+		addIsland(new Point(300, 450), new Point(200, 200), 1);
+		addIsland(new Point(900, 450), new Point(200, 200), 1);
+		addIsland(new Point(1500, 450), new Point(200, 200), 1);
+		addIsland(new Point(1900, 400), new Point(200, 200), 1);
+		addIsland(new Point(1900, 900), new Point(200, 200), 1);
+		addIsland(new Point(2240, -200), new Point(200, 200), 1);
+		addIsland(new Point(2300, 450), new Point(200, 200), 1);
+		addIsland(new Point(2240, 900), new Point(200, 200), 1);
+		addIsland(new Point(2600, 450), new Point(200, 200), 1);
+		
+		
+	}
+	
+	private void addIsland(Point position,Point size,int tag) {
+		JButton button = new JButton();
+		button.setBorderPainted(false);
+		button.setBackground(Color.WHITE);
 
-			JButton button = new JButton("island" + (i + 1));
-			button.setBorderPainted(false);
-			button.setBackground(Color.WHITE);
+		button.setBounds(position.x,position.y,size.x,size.y);
 
-			button.setBounds(2700,1300,200, 200);
-
-			button.setContentAreaFilled(false);
-
-			setIcon("source/images/island" + (i + 1) + ".jpg", button);
-			island.add(button);
-			backgroundJPanel.add(button);
-		}
+		button.setContentAreaFilled(false);
+		
+		setIcon("source/images/islands/island"+tag+".jpg", button);
+		island.add(button);
+		backgroundJPanel.add(button);
 	}
 
 	public void setIcon(String Url, JButton button) {
