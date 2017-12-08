@@ -4,6 +4,7 @@ import com.civilization.model.Player;
 
 public class Game {
 
+	//胜负判断
 	public String winOrLose(Player p1,Player p2)
 	{
 		

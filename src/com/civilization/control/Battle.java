@@ -62,15 +62,15 @@ public class Battle {
 		int def_atkMin = 0;
 		switch(atk_Kind)
 		{
-		case 1:atk_atkMax=s1.getShip1_Atk_max();atk_atkMin=s1.getShip1_Atk_min();break;
-		case 2:atk_atkMax=s2.getShip2_Atk_max();atk_atkMin=s2.getShip2_Atk_min();break;
-		case 3:atk_atkMax=s3.getShip3_Atk_max();atk_atkMin=s3.getShip3_Atk_min();break;
+		case 1:atk_atkMax=s1.getShip_Atk_max();atk_atkMin=s1.getShip_Atk_min();break;
+		case 2:atk_atkMax=s2.getShip_Atk_max();atk_atkMin=s2.getShip_Atk_min();break;
+		case 3:atk_atkMax=s3.getShip_Atk_max();atk_atkMin=s3.getShip_Atk_min();break;
 		}
 		switch(def_Kind)
 		{
-		case 1:def_atkMax=s1.getShip1_Atk_max();def_atkMin=s1.getShip1_Atk_min();break;
-		case 2:def_atkMax=s2.getShip2_Atk_max();def_atkMin=s2.getShip2_Atk_min();break;
-		case 3:def_atkMax=s3.getShip3_Atk_max();def_atkMin=s3.getShip3_Atk_min();break;
+		case 1:def_atkMax=s1.getShip_Atk_max();def_atkMin=s1.getShip_Atk_min();break;
+		case 2:def_atkMax=s2.getShip_Atk_max();def_atkMin=s2.getShip_Atk_min();break;
+		case 3:def_atkMax=s3.getShip_Atk_max();def_atkMin=s3.getShip_Atk_min();break;
 		}
 		int[] atk_Dam = {0,0,0,0,0};
 		int[] def_Dam = {0,0,0,0,0};
@@ -82,7 +82,7 @@ public class Battle {
 		}
 		
 		
-		// 按伤害从高到低依次排列,假装已经排完序了
+		// T 按伤害从高到低依次排列,假装已经排完序了
 		// 最高对最高，第二对第二，以此类推，数值小的一方GG
 		int atk_GG_Num = 0;
 		int def_GG_Num = 0;
