@@ -5,6 +5,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import com.civilization.control.BackgroundController;
 
@@ -46,10 +47,11 @@ public class BackgroundJPanel extends JPanel {
 
 	private void drawBackground(Graphics graphics) {
 		if (backgroundImage != null) {
-			
+		
 			int width=  getWidth() * mapSizeX;	
 			int height=  getHeight() * mapSizeX;  
 			graphics.drawImage(backgroundImage, drawX, drawY,width, height, null);
+
 			
 		}
 	}

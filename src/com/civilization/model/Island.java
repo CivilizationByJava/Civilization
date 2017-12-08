@@ -89,5 +89,6 @@ public class Island {
 		}
 		return gettedMoney;
 	}
+	//T 判断两个岛之间距离
 	
 }
