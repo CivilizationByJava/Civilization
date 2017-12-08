@@ -51,7 +51,7 @@ public class MapView extends JFrame {
 	private JLabel player2Money;
 	private JLabel player2Islands;
 	//
-	private List<Island> islandsMode=new ArrayList<>();
+	private List<Island> islandsMode = new ArrayList<>();
 
 	private JPanel player2Area;
 	//
@@ -67,30 +67,31 @@ public class MapView extends JFrame {
 	private JButton bomb;
 	private JLabel label;
 	private JPanel panel;
-	
-	public void setShopView(){
+
+	public void setShopView() {
 		panel.setVisible(false);
 		panel.setOpaque(false);
-		
+
 		ship1.setContentAreaFilled(false);
 		ship1.setBackground(Color.WHITE);
-		setIcon("source/images/ship1.jpg",ship1);
+		setIcon("source/images/ship1.jpg", ship1);
 		panel.add(ship1);
 		ship2.setContentAreaFilled(false);
 		ship2.setBackground(Color.WHITE);
-		setIcon("source/images/ship2.jpg",ship2);
+		setIcon("source/images/ship2.jpg", ship2);
 		panel.add(ship2);
 		ship3.setContentAreaFilled(false);
 		ship3.setBackground(Color.WHITE);
-		setIcon("source/images/ship3.jpg",ship3);
+		setIcon("source/images/ship3.jpg", ship3);
 		System.out.println(ship3);
 		panel.add(ship3);
 		bomb.setContentAreaFilled(false);
 		bomb.setBackground(Color.WHITE);
-		setIcon("source/images/bomb.jpg",bomb);
+		setIcon("source/images/bomb.jpg", bomb);
 		System.out.println(bomb);
 		panel.add(bomb);
 	}
+
 	public MapView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -127,123 +128,96 @@ public class MapView extends JFrame {
 
 		battleArea = new JPanel();
 		battleArea.setVisible(false);
-		
+
 		panel = new JPanel();
 		GroupLayout gl_backgroundJPanel = new GroupLayout(backgroundJPanel);
-		gl_backgroundJPanel.setHorizontalGroup(
-			gl_backgroundJPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_backgroundJPanel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(player1Area, GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(battleArea, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(player2Area, GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
-					.addGap(50)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
-				.addComponent(playerInfo, GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE)
-		);
-		gl_backgroundJPanel.setVerticalGroup(
-			gl_backgroundJPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_backgroundJPanel.createSequentialGroup()
-					.addGroup(gl_backgroundJPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_backgroundJPanel.createSequentialGroup()
-							.addGap(159)
-							.addGroup(gl_backgroundJPanel.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_backgroundJPanel.createSequentialGroup()
-									.addGap(50)
-									.addGroup(gl_backgroundJPanel.createParallelGroup(Alignment.LEADING)
-										.addComponent(battleArea, GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
-										.addComponent(player2Area, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)))
+		gl_backgroundJPanel.setHorizontalGroup(gl_backgroundJPanel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_backgroundJPanel.createSequentialGroup().addContainerGap()
+						.addComponent(player1Area, GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(battleArea, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(player2Area, GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE).addGap(50)
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap())
+				.addComponent(playerInfo, GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE));
+		gl_backgroundJPanel.setVerticalGroup(gl_backgroundJPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_backgroundJPanel.createSequentialGroup().addGroup(gl_backgroundJPanel
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_backgroundJPanel.createSequentialGroup().addGap(159).addGroup(gl_backgroundJPanel
+								.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_backgroundJPanel.createSequentialGroup().addGap(50)
+										.addGroup(gl_backgroundJPanel.createParallelGroup(Alignment.LEADING)
+												.addComponent(battleArea, GroupLayout.DEFAULT_SIZE, 289,
+														Short.MAX_VALUE)
+												.addComponent(player2Area, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE,
+														289, Short.MAX_VALUE)))
 								.addComponent(player1Area, GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)))
 						.addGroup(gl_backgroundJPanel.createSequentialGroup()
-							.addComponent(playerInfo, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)))
-					.addContainerGap())
-		);
-		
+								.addComponent(playerInfo, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)))
+						.addContainerGap()));
+
 		lblNewLabel = new JLabel("shop");
 		lblNewLabel.addMouseListener(new MouseAdapter() {
-			boolean bool=true;
+			boolean bool = true;
+
 			public void mouseClicked(MouseEvent arg0) {
-				if(bool){
+				if (bool) {
 					panel.setVisible(true);
-				}else{
+				} else {
 					panel.setVisible(false);
 				}
-				bool=!bool;
+				bool = !bool;
 			}
 		});
 		GroupLayout gl_playerInfo = new GroupLayout(playerInfo);
-		gl_playerInfo.setHorizontalGroup(
-			gl_playerInfo.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_playerInfo.createSequentialGroup()
-					.addGap(14)
-					.addComponent(player1Name, GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-					.addGap(33)
-					.addComponent(player1Money, GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-					.addGap(70)
-					.addComponent(player1Islands, GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-					.addGap(108)
-					.addComponent(player2Name, GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-					.addGap(91)
-					.addComponent(player2Money, GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-					.addGap(95)
-					.addComponent(player2Islands, GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-					.addGap(107)
-					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-					.addGap(23))
-		);
-		gl_playerInfo.setVerticalGroup(
-			gl_playerInfo.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_playerInfo.createSequentialGroup()
-					.addGap(13)
-					.addComponent(player1Name, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_playerInfo.createSequentialGroup()
-					.addGap(22)
-					.addComponent(player1Money))
-				.addGroup(gl_playerInfo.createSequentialGroup()
-					.addGap(22)
-					.addComponent(player1Islands))
-				.addGroup(gl_playerInfo.createSequentialGroup()
-					.addGap(22)
-					.addComponent(player2Name))
-				.addGroup(gl_playerInfo.createSequentialGroup()
-					.addGap(22)
-					.addGroup(gl_playerInfo.createParallelGroup(Alignment.BASELINE)
-						.addComponent(player2Money)
-						.addComponent(player2Islands)
-						.addComponent(lblNewLabel)))
-		);
+		gl_playerInfo.setHorizontalGroup(gl_playerInfo.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_playerInfo.createSequentialGroup().addGap(14)
+						.addComponent(player1Name, GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE).addGap(33)
+						.addComponent(player1Money, GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE).addGap(70)
+						.addComponent(player1Islands, GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE).addGap(108)
+						.addComponent(player2Name, GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE).addGap(91)
+						.addComponent(player2Money, GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE).addGap(95)
+						.addComponent(player2Islands, GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE).addGap(107)
+						.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE).addGap(23)));
+		gl_playerInfo.setVerticalGroup(gl_playerInfo.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_playerInfo.createSequentialGroup().addGap(13).addComponent(player1Name,
+						GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_playerInfo.createSequentialGroup().addGap(22).addComponent(player1Money))
+				.addGroup(gl_playerInfo.createSequentialGroup().addGap(22).addComponent(player1Islands))
+				.addGroup(gl_playerInfo.createSequentialGroup().addGap(22).addComponent(player2Name))
+				.addGroup(gl_playerInfo.createSequentialGroup().addGap(22)
+						.addGroup(gl_playerInfo.createParallelGroup(Alignment.BASELINE).addComponent(player2Money)
+								.addComponent(player2Islands).addComponent(lblNewLabel))));
 		playerInfo.setLayout(gl_playerInfo);
-		
+
 		ship1 = new JButton("ship1");
 		ship1.setBounds(0, 0, 131, 67);
-		
+
 		ship2 = new JButton("ship2");
 		ship2.setBounds(0, 106, 131, 75);
-		
+
 		ship3 = new JButton("ship3");
 		ship3.setBounds(0, 225, 131, 75);
-		
+
 		ship3Price = new JLabel("50$/5");
 		ship3Price.setBounds(58, 308, 31, 18);
-		
+
 		ship2Price = new JLabel("40$/5");
 		ship2Price.setBounds(48, 194, 41, 18);
-		
+
 		ship1Price = new JLabel("50$/5");
 		ship1Price.setBounds(58, 75, 31, 18);
 		panel.setLayout(null);
 		panel.add(ship3Price);
 		panel.add(ship2Price);
 		panel.add(ship1Price);
-		
+
 		bomb = new JButton("bomb");
 		bomb.setBounds(34, 339, 70, 49);
-	
+
 		label = new JLabel("50$/1");
 		label.setBounds(58, 404, 31, 18);
 		panel.add(label);
@@ -263,26 +237,55 @@ public class MapView extends JFrame {
 		setShopView();
 	}
 
-
 	public void setButton() {
-		addIsland(new Point(-800, 450), new Point(200, 200), 1);
-		addIsland(new Point(-560, -200), new Point(200, 200), 1);
-		addIsland(new Point(-500, 400), new Point(200, 200), 1);
-		addIsland(new Point(-560, 900), new Point(200, 200), 1);
-		addIsland(new Point(-100, 400), new Point(200, 200), 1);
-		addIsland(new Point(-100, 900), new Point(200, 200), 1);
+		// 为每个岛屿赋予 种类，level
+		addIsland(new Point(-800, 450), new Point(300, 300), 1);
+		Island island_1 = new Island("main", 0);
+		islandsMode.add(island_1);
+		addIsland(new Point(-560, -200), new Point(150, 150), 1);
+		Island island_2 = new Island("small", 1);
+		islandsMode.add(island_2);
+		addIsland(new Point(-500, 400), new Point(150, 150), 1);
+		Island island_3 = new Island("small", 1);
+		islandsMode.add(island_3);
+		addIsland(new Point(-560, 900), new Point(150, 150), 1);
+		Island island_4 = new Island("small", 1);
+		islandsMode.add(island_4);
+		addIsland(new Point(-100, 400), new Point(150, 150), 1);
+		Island island_5 = new Island("small", 2);
+		islandsMode.add(island_5);
+		addIsland(new Point(-100, 900), new Point(150, 150), 1);
+		Island island_6 = new Island("small", 2);
+		islandsMode.add(island_6);
 		addIsland(new Point(300, 450), new Point(200, 200), 1);
-		addIsland(new Point(900, 450), new Point(200, 200), 1);
+		Island island_7 = new Island("big", 3);
+		islandsMode.add(island_7);
+		addIsland(new Point(900, 450), new Point(300, 300), 1);
+		Island island_8 = new Island("main", 4);
+		islandsMode.add(island_8);
 		addIsland(new Point(1500, 450), new Point(200, 200), 1);
-		addIsland(new Point(1900, 400), new Point(200, 200), 1);
-		addIsland(new Point(1900, 900), new Point(200, 200), 1);
-		addIsland(new Point(2240, -200), new Point(200, 200), 1);
-		addIsland(new Point(2300, 450), new Point(200, 200), 1);
-		addIsland(new Point(2240, 900), new Point(200, 200), 1);
-		addIsland(new Point(2600, 450), new Point(200, 200), 1);
+		Island island_9 = new Island("big", 5);
+		islandsMode.add(island_9);
+		addIsland(new Point(1900, 400), new Point(150, 150), 1);
+		Island island_10 = new Island("small", 6);
+		islandsMode.add(island_10);
+		addIsland(new Point(1900, 900), new Point(150, 150), 1);
+		Island island_11 = new Island("small", 6);
+		islandsMode.add(island_11);
+		addIsland(new Point(2240, -200), new Point(150, 150), 1);
+		Island island_12 = new Island("small", 7);
+		islandsMode.add(island_12);
+		addIsland(new Point(2300, 450), new Point(150, 150), 1);
+		Island island_13 = new Island("small", 7);
+		islandsMode.add(island_13);
+		addIsland(new Point(2240, 900), new Point(150, 150), 1);
+		Island island_14 = new Island("small", 7);
+		islandsMode.add(island_14);
+		addIsland(new Point(2500, 450), new Point(300, 300), 1);
+		Island island_15 = new Island("main", 8);
+		islandsMode.add(island_15);
 	}
-		
-		
+
 	public JPanel getPlayer1Area() {
 		return player1Area;
 	}
@@ -291,19 +294,16 @@ public class MapView extends JFrame {
 		return battleArea;
 	}
 
-
-	
-	
-	private void addIsland(Point position,Point size,int tag) {
+	private void addIsland(Point position, Point size, int tag) {
 		JButton button = new JButton();
 		button.setBorderPainted(false);
 		button.setBackground(Color.WHITE);
 
-		button.setBounds(position.x,position.y,size.x,size.y);
+		button.setBounds(position.x, position.y, size.x, size.y);
 
 		button.setContentAreaFilled(false);
-		
-		setIcon("source/images/islands/island"+tag+".jpg", button);
+
+		setIcon("source/images/islands/island" + tag + ".jpg", button);
 		island.add(button);
 		backgroundJPanel.add(button);
 	}

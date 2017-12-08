@@ -12,8 +12,8 @@ public class Music {
 		AudioClip sound = java.applet.Applet.newAudioClip(music_Begin);
 		// sound.play();
 		sound.loop();
-		//切换界面时停止播放音乐
-		while(IsBegin==false) {
+		// 切换界面时停止播放音乐
+		while (IsBegin == false) {
 			sound.stop();
 		}
 
@@ -28,10 +28,10 @@ public class Music {
 		// sound.play();
 		sound.loop();
 		// sound.stop();
-		//切换界面时停止播放音乐
-				while(IsBattle==false) {
-					sound.stop();
-				}
+		// 切换界面时停止播放音乐
+		while (IsBattle == false) {
+			sound.stop();
+		}
 
 	}
 
@@ -44,10 +44,10 @@ public class Music {
 		// sound.play();
 		sound.loop();
 		// sound.stop();
-		//切换界面时停止播放音乐
-				while(IsMap==false) {
-					sound.stop();
-				}
+		// 切换界面时停止播放音乐
+		while (IsMap == false) {
+			sound.stop();
+		}
 
 	}
 
@@ -60,10 +60,10 @@ public class Music {
 		// sound.play();
 		sound.loop();
 		// sound.stop();
-		//切换界面时停止播放音乐
-				while(IsShop==false) {
-					sound.stop();
-				}
+		// 切换界面时停止播放音乐
+		while (IsShop == false) {
+			sound.stop();
+		}
 
 	}
 
@@ -76,6 +76,7 @@ public class Music {
 		// sound.loop();
 		// sound.stop();
 	}
+
 	public void musicAttack() {
 		// 音效尚未添加
 		java.net.URL music_Attack = getClass().getResource("/save.wav");
