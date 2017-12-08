@@ -15,13 +15,11 @@ import javax.swing.LayoutStyle;
 import com.civilization.View.BackgroundJPanel;
 import com.civilization.View.MapView;
 import com.civilization.model.Island;
-import com.sun.javafx.sg.prism.web.NGWebView;
-
-import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 
 //控制背景图片
 public class BackgroundController {
 
+	private Battle battle = new Battle();
 	//
 	MapView mapView = new MapView();
 	BackgroundJPanel backgroundJPanel = new BackgroundJPanel();
@@ -34,6 +32,7 @@ public class BackgroundController {
 	// 前一个位置
 	private int beginX = 0;
 
+	private int value;
 	//
 	private Point attackPanel;
 
@@ -130,8 +129,10 @@ public class BackgroundController {
 					// 点击岛屿\
 					if (isAttack) {
 						clickedIsland = mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
-
 						// 数据
+						battle.BattleStart(lastClickIsland, clickedIsland, lastClickIsland.getPlayer_Army_Kind(),
+								clickedIsland.getPlayer_Army_Kind(), value);
+						isAttack = false;
 						// 图像
 
 					} else {
@@ -155,19 +156,31 @@ public class BackgroundController {
 			}
 
 		});
+		
+		addShopListener();
 
 	}
 
 	//
 	private void addShopListener() {
 		mapView.getShip1().addMouseListener(new MouseAdapter() {
-			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//购买
+			}
+
 		});
 		mapView.getShip2().addMouseListener(new MouseAdapter() {
-
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//购买
+			}
 		});
 		mapView.getShip3().addMouseListener(new MouseAdapter() {
-
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//购买
+			}
 		});
 	}
 
