@@ -8,8 +8,8 @@ public class Music {
 	public void musicPlayer_Begin(boolean IsBegin) {
 
 		// 游戏开始界面的bgm：lost in the nowhere
-		java.net.URL music_Begin = getClass().getResource("/lostInTheNowhere.wav");
-
+		java.net.URL music_Begin = getClass().getResource("../lostInTheNowhere.wav");
+System.out.println(music_Begin);
 		AudioClip sound = java.applet.Applet.newAudioClip(music_Begin);
 		// sound.play();
 		sound.loop();
@@ -23,7 +23,7 @@ public class Music {
 	public void musicPlayer_Battle(boolean IsBattle) {
 
 		// 游戏战斗界面的bgm：Parodia Sonatina Var.2
-		java.net.URL music_Battle = getClass().getResource("/ParodiaSonatinaVar2.wav");
+		java.net.URL music_Battle = getClass().getResource("../ParodiaSonatinaVar2.wav");
 
 		AudioClip sound = java.applet.Applet.newAudioClip(music_Battle);
 		// sound.play();
@@ -39,7 +39,7 @@ public class Music {
 	public void musicPlayer_Map(boolean IsMap) {
 
 		// 游戏地图界面的bgm：NoEl
-		java.net.URL music_Map = getClass().getResource("/NoEl.wav");
+		java.net.URL music_Map = getClass().getResource("../NoEl.wav");
 
 		AudioClip sound = java.applet.Applet.newAudioClip(music_Map);
 		// sound.play();
@@ -55,7 +55,7 @@ public class Music {
 	public void musicPlayer_Shop(boolean IsShop) {
 
 		// 游戏商店界面的bgm：赎罪（arrange）
-		java.net.URL music_Shop = getClass().getResource("/save.wav");
+		java.net.URL music_Shop = getClass().getResource("../save.wav");
 
 		AudioClip sound = java.applet.Applet.newAudioClip(music_Shop);
 		// sound.play();
