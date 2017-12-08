@@ -8,11 +8,11 @@ public class MainStript {
 	
 	//主控制器
 	private static MainController mainController=new MainController();
-	//private static Music musicPlay=new Music();
+	private static Music musicPlay=new Music();
 	public static void main(String[] args) {
 
 		//初始化游戏
 		mainController.initGame();
-		//musicPlay.musicPlayer_Begin(true);
+		musicPlay.musicPlayer_Begin(true);
 	}
 }

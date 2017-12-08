@@ -6,23 +6,23 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.JButton;
+import javax.swing.LayoutStyle;
 
 import com.civilization.View.BackgroundJPanel;
 import com.civilization.View.MapView;
 import com.civilization.model.Island;
-import com.sun.javafx.sg.prism.web.NGWebView;
-
-import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 
 //控制背景图片
 public class BackgroundController {
 
+	private Battle battle = new Battle();
 	//
 	MapView mapView = new MapView();
-	BackgroundJPanel backgroundJPanel=new BackgroundJPanel();
+	BackgroundJPanel backgroundJPanel = new BackgroundJPanel();
 	//
 	String backgroundURL = "source/images/background.jpg";
 
@@ -32,15 +32,16 @@ public class BackgroundController {
 	// 前一个位置
 	private int beginX = 0;
 
+	private int value;
 	//
 	private Point attackPanel;
 
 	private int beginY = 0;
 
 	boolean inBackground = false;
-	
-	boolean isAttack=false;
-	
+
+	boolean isAttack = false;
+
 	//
 	private Island clickedIsland;
 	//
@@ -49,14 +50,16 @@ public class BackgroundController {
 	private int attackShipType;
 
 	public void initBackGroundDraw() {
-		
-		mapView.showAttackPanel(-5000,-5000);
-		attackPanel=new Point(-5000, -5000);
-		//backgroundX = (int) ((mapView.getWidth() - mapView.getBackgroundJPanel().getWidth()) / 2);
-		//backgroundY = (int) ((mapView.getHeight() - mapView.getBackgroundJPanel().getHeight()) / 2);
+
+		mapView.showAttackPanel(-5000, -5000);
+		attackPanel = new Point(-5000, -5000);
+		// backgroundX = (int) ((mapView.getWidth() -
+		// mapView.getBackgroundJPanel().getWidth()) / 2);
+		// backgroundY = (int) ((mapView.getHeight() -
+		// mapView.getBackgroundJPanel().getHeight()) / 2);
 		mapView.getBackgroundJPanel().initData();
 
-		mapView.getBackgroundJPanel().setLocation(backgroundX-10, backgroundY-24); // 定位
+		mapView.getBackgroundJPanel().setLocation(backgroundX - 10, backgroundY - 24); // 定位
 
 		// 鼠标动作 监听器 注册
 		mapView.addMouseListener(new MouseAdapter() {
@@ -71,17 +74,16 @@ public class BackgroundController {
 				inBackground = false;
 			}
 		});
-		
-		
+
 		//
 		mapView.addComponentListener(new ComponentAdapter() {
-			
+
 			@Override
-			public void componentResized(ComponentEvent e){
+			public void componentResized(ComponentEvent e) {
 				backgroundX = (int) ((mapView.getWidth() - mapView.getBackgroundJPanel().getWidth()) / 2);
 				backgroundY = (int) ((mapView.getHeight() - mapView.getBackgroundJPanel().getHeight()) / 2);
 				mapView.getBackgroundJPanel().initData();
-				
+
 			}
 
 		});
@@ -97,76 +99,105 @@ public class BackgroundController {
 					backgroundY -= chanegY;
 					beginX = e.getX();
 					beginY = e.getY();
-				
+
 					mapView.getBackgroundJPanel().moveDrawPoint(backgroundX, backgroundY);
 					if (isInBounds()) {
-						for(JButton island:mapView.getIsland()){
-							Point position=island.getLocation();
-							island.setLocation(new Point(position.x-changeX,position.y-chanegY));
-							//			
+						for (JButton island : mapView.getIsland()) {
+							Point position = island.getLocation();
+							island.setLocation(new Point(position.x - changeX, position.y - chanegY));
+							//
 						}
-						mapView.showAttackPanel(mapView.getAttackPanel().getLocation().x-changeX,mapView.getAttackPanel().getLocation().y-chanegY);
+						mapView.showAttackPanel(mapView.getAttackPanel().getLocation().x - changeX,
+								mapView.getAttackPanel().getLocation().y - chanegY);
 						mapView.getBackgroundJPanel().repaint();
-						
+
 					} else {
 						backgroundX += changeX;
 						backgroundY += chanegY;
 						mapView.getBackgroundJPanel().moveDrawPoint(-backgroundX, -backgroundY);
-					}	
+					}
 				}
-		
+
 			}
 		});
-		
-		//岛屿Button按钮监听事件
-		for(JButton island:mapView.getIsland()) {
+
+		// 岛屿Button按钮监听事件
+		for (JButton island : mapView.getIsland()) {
 			island.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
-					//点击岛屿\
-					if(isAttack) {
-						clickedIsland=mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
-						//数据
-						//图像
-					
-					}else {
-						lastClickIsland=mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
+					// 点击岛屿\
+					if (isAttack) {
+						clickedIsland = mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
+						// 数据
+						battle.BattleStart(lastClickIsland, clickedIsland, lastClickIsland.getPlayer_Army_Kind(),
+								clickedIsland.getPlayer_Army_Kind(), value);
+						isAttack = false;
+						// 图像
+
+					} else {
+						lastClickIsland = mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
 						mapView.setClickedIsland(clickedIsland);
 						mapView.showAttackPanel(island.getLocation().x+150,island.getLocation().y-150);
+
 					}
 				}
 			});
 		}
-		
+
 		mapView.getAttackbutton().addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int value=(int)(mapView.getSpinner().getValue());
-				if(value<=clickedIsland.getPlayer_Army_Num()&&value<=5) {
-					System.out.println((int)(mapView.getSpinner().getValue()));
-					attackShipType=clickedIsland.getEnemy_Kinds();
-					isAttack=true;
+				int value = (int) (mapView.getSpinner().getValue());
+				if (value <= lastClickIsland.getPlayer_Army_Num() && value <= 5) {
+					attackShipType = lastClickIsland.getEnemy_Kinds();
+					isAttack = true;
 				}
 			}
-			
+
 		});
 		
+		addShopListener();
+
+	}
+
+	//
+	private void addShopListener() {
+		mapView.getShip1().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//购买
+			}
+
+		});
+		mapView.getShip2().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//购买
+			}
+		});
+		mapView.getShip3().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//购买
+			}
+		});
 	}
 
 	private int getIslandByName(Object object) {
-		for(JButton island:mapView.getIsland()) {
-			if(island.equals(object)) {
+		for (JButton island : mapView.getIsland()) {
+			if (island.equals(object)) {
 				return mapView.getIsland().indexOf(island);
 			}
 		}
-		
+
 		return 0;
 	}
-	
+
 	// 检测 点(x,y) 是否在图片上
 	private boolean isInBounds() {
-		
+
 		if (mapView.getBackgroundJPanel().getDrawX() > -mapView.getBackgroundJPanel().getWidth()
 				&& mapView.getBackgroundJPanel().getDrawX() < 0
 				&& mapView.getBackgroundJPanel().getDrawY() > -mapView.getBackgroundJPanel().getHeight()
@@ -181,10 +212,9 @@ public class BackgroundController {
 	public void initBackGroundControler() {
 		initMapView();
 		mapView.getBackgroundJPanel().setBackgroundImage(backgroundURL);
-	//	mapView.setButton();
+		// mapView.setButton();
 		initBackGroundDraw();
 	}
-
 
 	// 初始化地图
 	private void initMapView() {
@@ -200,4 +230,3 @@ public class BackgroundController {
 	}
 
 }
-	
