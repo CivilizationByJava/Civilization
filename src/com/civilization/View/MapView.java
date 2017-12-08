@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,13 +18,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
-import org.omg.CORBA.PRIVATE_MEMBER;
-
 import com.civilization.model.Island;
+
 import com.sun.org.apache.xerces.internal.impl.xpath.XPath.Step;
 
 import java.awt.event.MouseAdapter;
@@ -84,12 +88,11 @@ public class MapView extends JFrame {
 	private JSpinner spinner;
 	
 	public void showAttackPanel(int x,int y){
-		attackPanel.setLocation(x,y);
 		attackPanel.setVisible(true);
+		attackPanel.setLocation(x,y);
 		
 	}
 	public void setAttackPanelView(){
-		attackPanel.setVisible(false);
 		ship1Icon.setContentAreaFilled(false);
 		ship1Icon.setBackground(Color.WHITE);
 		setIcon("source/images/ship1.png",ship1Icon);
@@ -102,7 +105,6 @@ public class MapView extends JFrame {
 		ship3Icon.setBackground(Color.WHITE);
 		setIcon("source/images/ship3.png",ship3Icon);
 		attackPanel.add(ship3Icon);
-		attackPanel.setOpaque(getIgnoreRepaint());
 		cancelbutton.setContentAreaFilled(false);
 		attackbutton.setContentAreaFilled(false);
 		attackPanel.add(spinner);
@@ -122,19 +124,17 @@ public class MapView extends JFrame {
 		ship3.setContentAreaFilled(false);
 		ship3.setBackground(Color.WHITE);
 		setIcon("source/images/ship3.png",ship3);
-		System.out.println(ship3);
 		panel.add(ship3);
 		bomb.setContentAreaFilled(false);
 		bomb.setBackground(Color.WHITE);
 		setIcon("source/images/bomb.jpg",bomb);
-		System.out.println(bomb);
 		panel.add(bomb);
 	}
 	public MapView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.setBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds());
-		setBounds(100, 100, 966, 568);
+
 		backgroundJPanel = new BackgroundJPanel();
 		backgroundJPanel.setBackground(Color.BLUE);
 		backgroundJPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -170,6 +170,7 @@ public class MapView extends JFrame {
 		panel = new JPanel();
 		
 		attackPanel = new JPanel();
+		attackPanel.setOpaque(false);
 		GroupLayout gl_backgroundJPanel = new GroupLayout(backgroundJPanel);
 		gl_backgroundJPanel.setHorizontalGroup(
 			gl_backgroundJPanel.createParallelGroup(Alignment.TRAILING)
@@ -234,6 +235,10 @@ public class MapView extends JFrame {
 		
 		
 		ship2Icon = new JButton("New button");
+		ship2Icon.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		ship2Icon.setBounds(72, 13, 57, 44);
 		
 		
@@ -436,4 +441,9 @@ public class MapView extends JFrame {
 	public JLabel getPlayer2Islands() {
 		return player2Islands;
 	}
+
+	public JPanel getAttackPanel() {
+		return attackPanel;
+	}
+	
 }
