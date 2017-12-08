@@ -18,14 +18,17 @@ import com.civilization.model.Island;
 import com.civilization.model.Ship_1;
 import com.civilization.model.Ship_2;
 import com.civilization.model.Ship_3;
+import com.sun.javafx.geom.transform.GeneralTransform3D;
 
 //控制背景图片
 public class BackgroundController {
 
 	private Battle battle = new Battle();
+
+	private Game game = new Game();
 	//
-	MapView mapView = new MapView();
-	BackgroundJPanel backgroundJPanel = new BackgroundJPanel();
+	private MapView mapView = new MapView(game);
+	private BackgroundJPanel backgroundJPanel = new BackgroundJPanel();
 	//
 	String backgroundURL = "source/images/background.jpg";
 
@@ -51,13 +54,12 @@ public class BackgroundController {
 	//
 	private int attackShipType;
 
+	public BackgroundController() {
+	}
+
 	public void initBackGroundDraw() {
 
-		mapView.showAttackPanel(-5000, -5000);
-		// backgroundX = (int) ((mapView.getWidth() -
-		// mapView.getBackgroundJPanel().getWidth()) / 2);
-		// backgroundY = (int) ((mapView.getHeight() -
-		// mapView.getBackgroundJPanel().getHeight()) / 2);
+		// mapView.showAttackPanel(-5000, -5000);
 		mapView.getBackgroundJPanel().initData();
 
 		mapView.getBackgroundJPanel().setLocation(backgroundX - 10, backgroundY - 24); // 定位
@@ -108,9 +110,9 @@ public class BackgroundController {
 							island.setLocation(new Point(position.x - changeX, position.y - chanegY));
 							//
 						}
-						
-						mapView.showAttackPanel(mapView.getAttackPanel().getLocation().x - changeX,
-								mapView.getAttackPanel().getLocation().y - chanegY);
+
+						// mapView.showAttackPanel(mapView.getAttackPanel().getLocation().x - changeX,
+						// mapView.getAttackPanel().getLocation().y - chanegY);
 						mapView.getBackgroundJPanel().repaint();
 
 					} else {
@@ -133,18 +135,29 @@ public class BackgroundController {
 						mapView.getShopButton().setVisible(false);
 						clickedIsland = mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
 						// 数据
+
+						int lastAt = lastClickIsland.getPlayer_Army_Num();
+						int lastDt = clickedIsland.getPlayer_Army_Num();
+
 						battle.BattleStart(lastClickIsland, clickedIsland, lastClickIsland.getPlayer_Army_Kind(),
 								clickedIsland.getPlayer_Army_Kind(), value);
+
+						int at = lastAt - lastClickIsland.getPlayer_Army_Num();
+						int dt = lastDt - clickedIsland.getPlayer_Army_Num();
+
 						isAttack = false;
 						// 图像
 
 					} else {
-						mapView.getShopButton().setVisible(true);
 						lastClickIsland = mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
+
+						mapView.getShopButton().setVisible(true);
+
 						mapView.setClickedIsland(clickedIsland);
-						mapView.showAttackPanel(island.getLocation().x+150,island.getLocation().y-150);
+						mapView.showAttackPanel(island.getLocation().x+150,island.getLocation().y-150,lastClickIsland);
 
 					}
+					mapView.getBackgroundJPanel().repaint();
 				}
 			});
 		}
@@ -161,21 +174,22 @@ public class BackgroundController {
 			}
 
 		});
-		
+
 		addShopListener();
 
 	}
 
 	//
-	BuyShip buy=new BuyShip();
-	Ship_1 s1=new Ship_1();
-	Ship_2 s2=new Ship_2();
-	Ship_3 s3=new Ship_3();
+	BuyShip buy = new BuyShip();
+	Ship_1 s1 = new Ship_1();
+	Ship_2 s2 = new Ship_2();
+	Ship_3 s3 = new Ship_3();
+
 	private void addShopListener() {
 		mapView.getShip1().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//购买
+				// 购买
 				buy.Buy(lastClickIsland.getHostOfIsland(), lastClickIsland, 1, s1, s2, s3, 5);
 			}
 
@@ -183,14 +197,14 @@ public class BackgroundController {
 		mapView.getShip2().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//购买
+				// 购买
 				buy.Buy(lastClickIsland.getHostOfIsland(), lastClickIsland, 2, s1, s2, s3, 5);
 			}
 		});
 		mapView.getShip3().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//购买
+				// 购买
 				buy.Buy(lastClickIsland.getHostOfIsland(), lastClickIsland, 3, s1, s2, s3, 5);
 			}
 		});
@@ -238,6 +252,10 @@ public class BackgroundController {
 				}
 			}
 		});
+	}
+
+	public MapView getMapView() {
+		return mapView;
 	}
 
 }
