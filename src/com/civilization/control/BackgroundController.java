@@ -13,13 +13,12 @@ import javax.swing.JButton;
 import com.civilization.View.BackgroundJPanel;
 import com.civilization.View.MapView;
 import com.civilization.model.Island;
-import com.sun.javafx.sg.prism.web.NGWebView;
 
-import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 
 //控制背景图片
 public class BackgroundController {
 
+	private Battle battle =new Battle();
 	//
 	MapView mapView = new MapView();
 	BackgroundJPanel backgroundJPanel=new BackgroundJPanel();
@@ -32,6 +31,7 @@ public class BackgroundController {
 	// 前一个位置
 	private int beginX = 0;
 
+	private int value;
 	//
 	private Point attackPanel;
 
@@ -127,6 +127,8 @@ public class BackgroundController {
 					if(isAttack) {
 						clickedIsland=mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
 						//数据
+						battle.BattleStart(lastClickIsland, clickedIsland, lastClickIsland.getPlayer_Army_Kind(), clickedIsland.getPlayer_Army_Kind(), value);
+						isAttack=false;
 						//图像
 					
 					}else {
@@ -142,10 +144,10 @@ public class BackgroundController {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int value=(int)(mapView.getSpinner().getValue());
-				if(value<=clickedIsland.getPlayer_Army_Num()&&value<=5) {
+				 value=(int)(mapView.getSpinner().getValue());
+				if(value<=lastClickIsland.getPlayer_Army_Num()&&value<=5) {
 					System.out.println((int)(mapView.getSpinner().getValue()));
-					attackShipType=clickedIsland.getEnemy_Kinds();
+					attackShipType=lastClickIsland.getEnemy_Kinds();
 					isAttack=true;
 				}
 			}

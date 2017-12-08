@@ -25,7 +25,7 @@ public class Island {
 	// 岛屿上玩家军队的种类:1,2,3三种
 	private int Player_Army_Kind;
 	// 岛屿上玩家军队的数量
-	private int Player_Army_Num;
+	private int Player_Army_Num=0;
 
 	public String getHostOfIsland() {
 		return HostOfIsland;

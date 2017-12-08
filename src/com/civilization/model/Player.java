@@ -6,7 +6,7 @@ public class Player {
 	// 玩家ID
 	private String Playerid;
 	// 玩家拥有的金钱数目
-	private int money;
+	private int money=1000;
 	// 玩家拥有的岛屿数量(主要，大型，小型)
 	private int islandsCount_Main = 1;
 	private int islandsCount_Big = 0;
@@ -14,11 +14,11 @@ public class Player {
 	// 每回合所能获得的总金钱数（随玩家持有的岛屿种类和数量而变化）
 	private int MoneyPerRound;
 	// 玩家拥有的兵种1数量
-	private int Ship1_Num;
+	private int Ship1_Num=5;
 	// 玩家拥有的兵种2数量
-	private int Ship2_Num;
+	private int Ship2_Num=0;
 	// 玩家拥有的兵种3数量
-	private int Ship3_Num;
+	private int Ship3_Num=0;
 	// 玩家主基地剩余生命值
 	private int Base_HP;
 
