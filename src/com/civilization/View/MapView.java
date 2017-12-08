@@ -25,6 +25,16 @@ import javax.swing.border.EmptyBorder;
 
 import com.civilization.model.Island;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.XPath.Step;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JScrollBar;
+import javax.swing.JTextField;
+import javax.swing.JSpinner;
+
 public class MapView extends JFrame {
 
 	private static final long serialVersionUID = 1L;

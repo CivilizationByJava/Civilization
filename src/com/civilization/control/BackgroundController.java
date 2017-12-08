@@ -107,6 +107,8 @@ public class BackgroundController {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
 					//点击岛屿
+					
+					mapView.showAttackPanel(island.getLocation().x,island.getLocation().y+200);
 				}
 			});
 		}
