@@ -21,17 +21,17 @@ public class Island {
 	// 岛链等级，只有相邻的两个岛链上的岛才能互相伤害
 	private int island_Level;
 	// 岛屿的占领者:player1,player2,中立 三种
-	private String HostOfIsland;
+	private Player HostOfIsland;
 	// 岛屿上玩家军队的种类:1,2,3三种
 	private int Player_Army_Kind;
 	// 岛屿上玩家军队的数量
 	private int Player_Army_Num=0;
 
-	public String getHostOfIsland() {
+	public Player getHostOfIsland() {
 		return HostOfIsland;
 	}
 
-	public void setHostOfIsland(String hostOfIsland) {
+	public void setHostOfIsland(Player hostOfIsland) {
 		HostOfIsland = hostOfIsland;
 	}
 

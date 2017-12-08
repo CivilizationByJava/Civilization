@@ -7,7 +7,7 @@ import com.civilization.model.Ship_3;
 import com.civilization.model.Island;
 public class BuyShip {
 
-	public void Player1buyShip1(Player p, Island island,int Shipkind, Ship_1 s1, Ship_2 s2, Ship_3 s3, int BuyShipNum) {
+	public void Buy(Player p, Island island,int Shipkind, Ship_1 s1, Ship_2 s2, Ship_3 s3, int BuyShipNum) {
 
 		switch (Shipkind) {
 		case 1:
