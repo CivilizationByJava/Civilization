@@ -15,6 +15,7 @@ import javax.swing.LayoutStyle;
 import com.civilization.View.BackgroundJPanel;
 import com.civilization.View.MapView;
 import com.civilization.model.Island;
+import com.civilization.model.Ship_1;
 
 //控制背景图片
 public class BackgroundController {
@@ -126,12 +127,15 @@ public class BackgroundController {
 			island.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
-					// 点击岛屿\
+					//System.out.println(isAttack);
+					// 点击岛
 					if (isAttack) {
 						clickedIsland = mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
 						// 数据
 						battle.BattleStart(lastClickIsland, clickedIsland, lastClickIsland.getPlayer_Army_Kind(),
 								clickedIsland.getPlayer_Army_Kind(), value);
+						//System.out.println("fdjfdjdf");
+						
 						isAttack = false;
 						// 图像
 

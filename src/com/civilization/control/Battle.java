@@ -1,11 +1,21 @@
 package com.civilization.control;
 
+import com.civilization.View.MapView;
 import com.civilization.model.Island;
 import com.civilization.model.Ship_1;
 import com.civilization.model.Ship_2;
 import com.civilization.model.Ship_3;
+import com.sun.jndi.toolkit.ctx.StringHeadTail;
+import com.sun.prism.Image;
+import com.sun.xml.internal.ws.org.objectweb.asm.Label;
 
+import java.awt.Button;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 public class Battle {
 	private int Atk_Army_Num = 0;
@@ -13,7 +23,7 @@ public class Battle {
 	Ship_1 s1 = new Ship_1();
 	Ship_2 s2 = new Ship_2();
 	Ship_3 s3 = new Ship_3();
-
+	MapView mapView=new MapView();
 	// 参数： 攻击方岛屿 防御方岛屿 派出军队数量
 	public int Player_Atk_Army(Island I_atk, Island I_def, int Army_Num)// 最后一个参数最大为5
 	{
@@ -53,7 +63,7 @@ public class Battle {
 			return I_def.getPlayer_Army_Kind();
 		}
 	}
-
+	
 	// 参数： 攻击方岛屿 防御方岛屿 攻击方兵种 防御方兵种
 	public void Attack(Island I_atk, Island I_def, int atk_Kind, int def_Kind) {
 
