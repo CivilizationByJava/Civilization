@@ -13,6 +13,6 @@ public class MainStript {
 
 		//初始化游戏
 		mainController.initGame();
-	//	musicPlay.musicPlayer_Begin(true);
+		musicPlay.musicPlayer_Begin(true);
 	}
 }
