@@ -254,7 +254,7 @@ public class MapView extends JFrame {
 		
 		spinner = new JSpinner();
 		spinner.setBounds(84, 95, 46, 24);
-		spinner.setModel(new SpinnerNumberModel(5, 1, 8, 1));
+		spinner.setModel(new SpinnerNumberModel(2, 1, 5, 1));
 	//	attackPanel.add(spinner);
 		
 		lblNewLabel = new JLabel("shop");

@@ -44,6 +44,8 @@ public class BackgroundController {
 	//
 	private Island clickedIsland;
 	//
+	private Island lastClickIsland;
+	//
 	private int attackShipType;
 
 	public void initBackGroundDraw() {
@@ -123,9 +125,12 @@ public class BackgroundController {
 				public void mouseClicked(MouseEvent arg0) {
 					//点击岛屿\
 					if(isAttack) {
+						clickedIsland=mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
+						//数据
+						//图像
 					
 					}else {
-						clickedIsland=mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
+						lastClickIsland=mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
 						mapView.setClickedIsland(clickedIsland);
 						mapView.showAttackPanel(island.getLocation().x,island.getLocation().y+200);
 					}
@@ -133,11 +138,13 @@ public class BackgroundController {
 			});
 		}
 		
-		mapView.addMouseListener(new MouseAdapter() {
+		mapView.getAttackbutton().addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if((int)(mapView.getSpinner().getValue())<=clickedIsland.getPlayer_Army_Num()) {
+				int value=(int)(mapView.getSpinner().getValue());
+				if(value<=clickedIsland.getPlayer_Army_Num()&&value<=5) {
+					System.out.println((int)(mapView.getSpinner().getValue()));
 					attackShipType=clickedIsland.getEnemy_Kinds();
 					isAttack=true;
 				}
