@@ -7,6 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
+import com.civilization.View.BackgroundJPanel;
 import com.civilization.View.MapView;
 
 //控制背景图片
@@ -14,11 +15,13 @@ public class BackgroundController {
 
 	//
 	MapView mapView = new MapView();
+	BackgroundJPanel backgroundJPanel=new BackgroundJPanel();
 	//
 	String backgroundURL = "source/images/background.jpg";
 
-	private int backgroundX=0;
-	private int backgroundY=0;
+	private int backgroundX;
+	private int backgroundY;
+	private int a=0,b=0;
 
 	// 前一个位置
 	private int beginX = 0;
@@ -73,7 +76,7 @@ public class BackgroundController {
 					backgroundY -= chanegY;
 					beginX = e.getX();
 					beginY = e.getY();
-
+				
 					mapView.getBackgroundJPanel().moveDrawPoint(backgroundX, backgroundY);
 					if (isInBounds()) {
 						mapView.getBackgroundJPanel().repaint();
@@ -81,9 +84,12 @@ public class BackgroundController {
 						backgroundX += changeX;
 						backgroundY += chanegY;
 						mapView.getBackgroundJPanel().moveDrawPoint(-backgroundX, -backgroundY);
+					}	
+					for(int i=0;i<mapView.getIslandNum();i++){
+							mapView.getIsland().get(i).setLocation(backgroundX-200+i*200,backgroundY-100+i*100);
 					}
 				}
-
+		
 			}
 		});
 		
@@ -106,6 +112,7 @@ public class BackgroundController {
 	public void initBackGroundControler() {
 		initMapView();
 		mapView.getBackgroundJPanel().setBackgroundImage(backgroundURL);
+	//	mapView.setButton();
 		initBackGroundDraw();
 	}
 
