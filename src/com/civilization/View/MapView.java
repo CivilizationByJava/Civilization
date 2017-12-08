@@ -398,7 +398,7 @@ public class MapView extends JFrame {
 		button.setBounds(position.x,position.y,size.x,size.y);
 
 		button.setContentAreaFilled(false);
-		
+		//setIcon("source/images/islands/newisland.png", button);
 		setIcon("source/images/islands/island"+tag+".jpg", button);
 		island.add(button);
 		backgroundJPanel.add(button);
