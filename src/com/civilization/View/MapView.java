@@ -1,48 +1,40 @@
 package com.civilization.View;
 
-import javax.swing.GroupLayout;
-import javax.swing.ImageIcon;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JFrame;
-import javax.swing.border.EmptyBorder;
-
-import org.omg.CORBA.PUBLIC_MEMBER;
-
-import com.sun.prism.Graphics;
-import com.sun.prism.Image;
-
-import sun.security.x509.PrivateKeyUsageExtension;
-
-import javax.swing.JPanel;
-import javax.swing.JButton;
-
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.GraphicsEnvironment;
-import java.awt.event.ActionListener;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.awt.event.ActionEvent;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MapView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private int islandNum=6;
+	private int islandNum = 6;
 	//
 	private BackgroundJPanel backgroundJPanel;
 
-	private List<JButton> island=new ArrayList<>();
-	
-	public int getIslandNum(){
+	private List<JButton> island = new ArrayList<>();
+
+	public int getIslandNum() {
 		return islandNum;
 	}
-	
-	public List<JButton> getIsland(){
+
+	public List<JButton> getIsland() {
 		return this.island;
 	}
+
 	private JLabel player1Name;
 	private JLabel player1Money;
 	private JLabel player1Islands;
@@ -50,17 +42,14 @@ public class MapView extends JFrame {
 	private JLabel player2Name;
 	private JLabel player2Money;
 	private JLabel player2Islands;
-	//
-	private JPanel player2Area;
-	//
-	private JPanel player1Area;
-	private JPanel battleArea;
 
 	public MapView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.setBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds());
-		setBounds(100, 100, 966, 568);
+
+		this.setBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds());
+
 		backgroundJPanel = new BackgroundJPanel();
 		backgroundJPanel.setBackground(Color.BLUE);
 		backgroundJPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -101,85 +90,50 @@ public class MapView extends JFrame {
 								.addComponent(player2Money).addComponent(player2Islands))
 						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		playerInfo.setLayout(gl_playerInfo);
-
-		player1Area = new JPanel();
-
-		player2Area = new JPanel();
-
-		battleArea = new JPanel();
 		GroupLayout gl_backgroundJPanel = new GroupLayout(backgroundJPanel);
-		gl_backgroundJPanel.setHorizontalGroup(gl_backgroundJPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_backgroundJPanel.createParallelGroup(Alignment.TRAILING).addGroup(Alignment.LEADING,
-						gl_backgroundJPanel.createSequentialGroup()
-								.addComponent(player1Area, GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(battleArea, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(player2Area, GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE))
-						.addComponent(playerInfo, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 938,
-								GroupLayout.PREFERRED_SIZE)));
-		gl_backgroundJPanel.setVerticalGroup(gl_backgroundJPanel.createParallelGroup(Alignment.LEADING)
+		gl_backgroundJPanel.setHorizontalGroup(
+			gl_backgroundJPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_backgroundJPanel.createSequentialGroup()
-						.addComponent(playerInfo, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_backgroundJPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(battleArea, GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
-								.addGroup(gl_backgroundJPanel.createParallelGroup(Alignment.TRAILING)
-										.addComponent(player2Area, GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
-										.addComponent(player1Area, GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)))
-						.addGap(0)));
-		GroupLayout gl_player1Area = new GroupLayout(player1Area);
-		gl_player1Area.setHorizontalGroup(
-				gl_player1Area.createParallelGroup(Alignment.LEADING).addGap(0, 404, Short.MAX_VALUE));
-		gl_player1Area.setVerticalGroup(
-				gl_player1Area.createParallelGroup(Alignment.LEADING).addGap(0, 451, Short.MAX_VALUE));
-		player1Area.setLayout(gl_player1Area);
-		GroupLayout gl_player2Area = new GroupLayout(player2Area);
-		gl_player2Area.setHorizontalGroup(
-				gl_player2Area.createParallelGroup(Alignment.LEADING).addGap(0, 438, Short.MAX_VALUE));
-		gl_player2Area.setVerticalGroup(
-				gl_player2Area.createParallelGroup(Alignment.LEADING).addGap(0, 451, Short.MAX_VALUE));
-		player2Area.setLayout(gl_player2Area);
+					.addComponent(playerInfo, GroupLayout.DEFAULT_SIZE, 999, Short.MAX_VALUE)
+					.addGap(87))
+		);
+		gl_backgroundJPanel.setVerticalGroup(
+			gl_backgroundJPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_backgroundJPanel.createSequentialGroup()
+					.addComponent(playerInfo, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(504, Short.MAX_VALUE))
+		);
 		backgroundJPanel.setLayout(gl_backgroundJPanel);
 	}
 
-	public JPanel getPlayer2Area() {
-		return player2Area;
-	}
 
-	public JPanel getPlayer1Area() {
-		return player1Area;
-	}
+	public void setButton() {
+		for (int i = 0; i < islandNum; i++) {
 
-	public JPanel getBattleArea() {
-		return battleArea;
-	}
-
-
-	public void setButton(){
-		for(int i=0;i<islandNum;i++){
-			
-			JButton button = new JButton("island"+(i+1));
+			JButton button = new JButton("island" + (i + 1));
 			button.setBorderPainted(false);
 			button.setBackground(Color.WHITE);
-			
-				button.setBounds(-200+200*i, -100+100*i,200, 200);
-			
+
+			button.setBounds(2700,1300,200, 200);
+
 			button.setContentAreaFilled(false);
-			
-			setIcon("source/images/island"+(i+1)+".jpg",button);
+
+			setIcon("source/images/island" + (i + 1) + ".jpg", button);
 			island.add(button);
 			backgroundJPanel.add(button);
 		}
 	}
-	
-	public void setIcon(String Url,JButton button ){
-		ImageIcon icon=new ImageIcon(Url);	
-		java.awt.Image temp=icon.getImage().getScaledInstance(button.getWidth(),button.getHeight() , icon.getImage().SCALE_DEFAULT);
-		icon=new ImageIcon(temp);
+
+	public void setIcon(String Url, JButton button) {
+		ImageIcon icon = new ImageIcon(Url);
+		icon.getImage();
+		java.awt.Image temp = icon.getImage().getScaledInstance(button.getWidth(), button.getHeight(),
+				Image.SCALE_DEFAULT);
+		icon = new ImageIcon(temp);
 		button.setIcon(icon);
-	
-		}
+
+	}
+
 	public BackgroundJPanel getBackgroundJPanel() {
 		return backgroundJPanel;
 	}
@@ -207,5 +161,4 @@ public class MapView extends JFrame {
 	public JLabel getPlayer2Islands() {
 		return player2Islands;
 	}
-
 }

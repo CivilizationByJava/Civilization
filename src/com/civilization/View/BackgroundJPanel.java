@@ -26,14 +26,12 @@ public class BackgroundJPanel extends JPanel {
 	private int drawX = 0;
 	// 绘制起点的Y坐标
 	private int drawY = 0;
-	// 背景图片缩放比例
-	private float backgroundScale = 1;
 	//
-	private int mapSizeX = 2;
+	private float mapSizeX = 2f;
 	//
-	private int mapSizeY = 2;
+	private float mapSizeY = 2f;
 	//
-	
+
 	public BackgroundJPanel() {
 
 	}
@@ -47,12 +45,11 @@ public class BackgroundJPanel extends JPanel {
 
 	private void drawBackground(Graphics graphics) {
 		if (backgroundImage != null) {
-		
-			int width=  getWidth() * mapSizeX;	
-			int height=  getHeight() * mapSizeX;  
-			graphics.drawImage(backgroundImage, drawX, drawY,width, height, null);
 
-			
+			int width = (int) (getWidth() * mapSizeX);
+			int height = (int) (getHeight() * mapSizeX);
+			graphics.drawImage(backgroundImage, drawX, drawY, width, height, null);
+
 		}
 	}
 
@@ -69,17 +66,13 @@ public class BackgroundJPanel extends JPanel {
 		drawY = intiDrawY + y;
 	}
 
-	public void setBackgroundScale(float backgroundScale) {
-		this.backgroundScale = backgroundScale;
-	}
-
 	public void setBackgroundImage(String backgroundURL) {
 		this.backgroundImage = new ImageIcon(backgroundURL).getImage();
 	}
 
 	public void initData() {
-		initDrawX = -getWidth() / mapSizeX;
-		intiDrawY = -getHeight() / mapSizeY;
+		initDrawX = -(int) (getWidth() / mapSizeX);
+		intiDrawY = -(int) (getHeight() / mapSizeY);
 		drawX = initDrawX;
 		drawY = intiDrawY;
 	}
