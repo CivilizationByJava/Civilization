@@ -25,7 +25,6 @@ public class BackgroundController {
 	private Game game = new Game();
 	//
 	private MapView mapView = new MapView(game);
-	private BackgroundJPanel backgroundJPanel = new BackgroundJPanel();
 	//
 	String backgroundURL = "source/images/background.jpg";
 
@@ -50,6 +49,9 @@ public class BackgroundController {
 	private Island lastClickIsland;
 	//
 	private int attackShipType;
+	
+	//
+	private int roundCount=3;
 
 	public BackgroundController() {
 	}
@@ -127,23 +129,36 @@ public class BackgroundController {
 			island.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
-					// System.out.println(isAttack);
 					// 点击岛
+					// 数据
 					if (isAttack) {
+						roundCount--;
 						mapView.getShopButton().setVisible(false);
 						clickedIsland = mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
-						// 数据
-
-						int lastAt = lastClickIsland.getPlayer_Army_Num();
-						int lastDt = clickedIsland.getPlayer_Army_Num();
-
-						battle.BattleStart(lastClickIsland, clickedIsland, lastClickIsland.getPlayer_Army_Kind(),
-								clickedIsland.getPlayer_Army_Kind(), value);
-
-						int at = lastAt - lastClickIsland.getPlayer_Army_Num();
-						int dt = lastDt - clickedIsland.getPlayer_Army_Num();
-
-						isAttack = false;
+						if(clickedIsland.equals(lastClickIsland)) {
+							roundCount=0;
+						}
+						
+						if(clickedIsland.getPlayer_Army_Num()==0) {
+							Move move=new Move();
+							move.shipMove(lastClickIsland, clickedIsland, value);
+						}else {
+							
+							int lastAt = lastClickIsland.getPlayer_Army_Num();
+							int lastDt = clickedIsland.getPlayer_Army_Num();
+							
+							battle.BattleStart(lastClickIsland, clickedIsland, lastClickIsland.getPlayer_Army_Kind(),
+									clickedIsland.getPlayer_Army_Kind(), value);
+							
+							int at = lastAt - lastClickIsland.getPlayer_Army_Num();
+							int dt = lastDt - clickedIsland.getPlayer_Army_Num();
+						}
+						isAttack=false;
+						
+						if(roundCount==0) {
+							game.switchPlayer();
+							isAttack=false;
+						}
 						// 图像
 
 					} else {
@@ -168,9 +183,10 @@ public class BackgroundController {
 				int value = (int) (mapView.getSpinner().getValue());
 				if (value <= lastClickIsland.getPlayer_Army_Num() && value <= 5
 						&& lastClickIsland.getHostOfIsland().equals(game.getCurPlayer())) {
-					attackShipType = lastClickIsland.getEnemy_Kinds();
+					attackShipType = lastClickIsland.getPlayer_Army_Kind();
 					isAttack = true;
 				}
+				
 			}
 
 		});
@@ -190,7 +206,7 @@ public class BackgroundController {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// 购买
-				if(!game.getCurPlayer().equals(lastClickIsland)) {
+				if(!game.getCurPlayer().equals(lastClickIsland.getHostOfIsland())) {
 					return ;
 				}
 				buy.Buy(game.getCurPlayer(), lastClickIsland, 1, s1, s2, s3, 5);
@@ -202,7 +218,7 @@ public class BackgroundController {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// 购买
-				if(!game.getCurPlayer().equals(lastClickIsland)) {
+				if(!game.getCurPlayer().equals(lastClickIsland.getHostOfIsland())) {
 					return ;
 				}
 				buy.Buy(game.getCurPlayer(), lastClickIsland, 2, s1, s2, s3, 5);
@@ -213,7 +229,7 @@ public class BackgroundController {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// 购买
-				if(!lastClickIsland.getHostOfIsland().equals(game.getCurPlayer())) {
+				if(!game.getCurPlayer().equals(lastClickIsland.getHostOfIsland())) {
 					return ;
 				} 
 				buy.Buy(game.getCurPlayer(), lastClickIsland, 3, s1, s2, s3, 5);

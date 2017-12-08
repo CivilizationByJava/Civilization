@@ -93,13 +93,12 @@ public class Battle {
 		}
 		int[] atk_Dam = { 0, 0, 0, 0, 0 };
 		int[] def_Dam = { 0, 0, 0, 0, 0 };
-		System.out.println(Atk_Army_Num);
 		for (int i = 0; i < Atk_Army_Num; i++) {
-			atk_Dam[i] = random.nextInt(atk_atkMax) % (atk_atkMax - atk_atkMin + 1) + atk_atkMin;
-
+			atk_Dam[i] = random.nextInt(atk_atkMax);
 		}
+		System.out.println();
 		for (int i = 0; i < Def_Army_Num; i++) {
-			def_Dam[i] = random.nextInt(def_atkMax) % (def_atkMax - def_atkMin + 1) + def_atkMin;
+			def_Dam[i] = random.nextInt(def_atkMax);
 		}
 
 		// T 按伤害从高到低依次排列,假装已经排完序了
