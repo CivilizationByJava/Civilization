@@ -82,7 +82,7 @@ public class MapView extends JFrame {
 		panel.add(ship2);
 		ship3.setContentAreaFilled(false);
 		ship3.setBackground(Color.WHITE);
-		setIcon("source/images/ship3.jpg",ship3);
+		setIcon("source/images/ship.png",ship3);
 		System.out.println(ship3);
 		panel.add(ship3);
 		bomb.setContentAreaFilled(false);
