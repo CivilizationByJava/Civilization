@@ -490,6 +490,19 @@ public class MapView extends JFrame {
 	public List<Island> getIslandsMode() {
 		return islandsMode;
 	}
+
+	public JButton getShip1() {
+		return ship1;
+	}
+
+	public JButton getShip2() {
+		return ship2;
+	}
+
+	public JButton getShip3() {
+		return ship3;
+	}
+	
 	
 	
 }

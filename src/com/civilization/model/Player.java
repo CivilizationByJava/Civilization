@@ -6,7 +6,7 @@ public class Player {
 	// 玩家ID
 	private String Playerid;
 	// 玩家拥有的金钱数目
-	private int money;
+	private int money=1000;
 	// 玩家拥有的岛屿数量(主要，大型，小型)
 	private int islandsCount_Main = 1;
 	private int islandsCount_Big = 0;
