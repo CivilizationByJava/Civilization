@@ -360,49 +360,49 @@ public class MapView extends JFrame {
 
 
 	public void setButton() {
-		addIsland(new Point(-800, 450), new Point(300, 300), 1);
+		addIsland(new Point(-900, 450), new Point(300, 300), 4);
 		Island island_1 = new Island("main", 0);
 		islandsMode.add(island_1);
-		addIsland(new Point(-560, -200), new Point(150, 150), 1);
+		addIsland(new Point(-560, -200), new Point(150, 150), 2);
 		Island island_2 = new Island("small", 1);
 		islandsMode.add(island_2);
-		addIsland(new Point(-500, 400), new Point(150, 150), 1);
+		addIsland(new Point(-500, 400), new Point(150, 150), 3);
 		Island island_3 = new Island("small", 1);
 		islandsMode.add(island_3);
-		addIsland(new Point(-560, 900), new Point(150, 150), 1);
+		addIsland(new Point(-560, 900), new Point(150, 150), 3);
 		Island island_4 = new Island("small", 1);
 		islandsMode.add(island_4);
-		addIsland(new Point(-100, 400), new Point(150, 150), 1);
+		addIsland(new Point(-100, 400), new Point(150, 150), 5);
 		Island island_5 = new Island("small", 2);
 		islandsMode.add(island_5);
-		addIsland(new Point(-100, 900), new Point(150, 150), 1);
+		addIsland(new Point(-100, 900), new Point(150, 150), 6);
 		Island island_6 = new Island("small", 2);
 		islandsMode.add(island_6);
-		addIsland(new Point(300, 450), new Point(200, 200), 1);
+		addIsland(new Point(300, 450), new Point(200, 200), 7);
 		Island island_7 = new Island("big", 3);
 		islandsMode.add(island_7);
-		addIsland(new Point(900, 450), new Point(300, 300), 1);
+		addIsland(new Point(900, 450), new Point(300, 300), 5);
 		Island island_8 = new Island("main", 4);
 		islandsMode.add(island_8);
-		addIsland(new Point(1500, 450), new Point(200, 200), 1);
+		addIsland(new Point(1500, 450), new Point(200, 200), 2);
 		Island island_9 = new Island("big", 5);
 		islandsMode.add(island_9);
-		addIsland(new Point(1900, 400), new Point(150, 150), 1);
+		addIsland(new Point(1900, 400), new Point(150, 150), 3);
 		Island island_10 = new Island("small", 6);
 		islandsMode.add(island_10);
-		addIsland(new Point(1900, 900), new Point(150, 150), 1);
+		addIsland(new Point(1900, 900), new Point(150, 150), 6);
 		Island island_11 = new Island("small", 6);
 		islandsMode.add(island_11);
-		addIsland(new Point(2240, -200), new Point(150, 150), 1);
+		addIsland(new Point(2240, -200), new Point(150, 150), 6);
 		Island island_12 = new Island("small", 7);
 		islandsMode.add(island_12);
-		addIsland(new Point(2300, 450), new Point(150, 150), 1);
+		addIsland(new Point(2300, 450), new Point(150, 150), 5);
 		Island island_13 = new Island("small", 7);
 		islandsMode.add(island_13);
-		addIsland(new Point(2240, 900), new Point(150, 150), 1);
+		addIsland(new Point(2240, 900), new Point(150, 150), 7);
 		Island island_14 = new Island("small", 7);
 		islandsMode.add(island_14);
-		addIsland(new Point(2500, 450), new Point(300, 300), 1);
+		addIsland(new Point(2500, 450), new Point(300, 300), 4);
 		Island island_15 = new Island("main", 8);
 		islandsMode.add(island_15);
 
@@ -428,8 +428,7 @@ public class MapView extends JFrame {
 		button.setBounds(position.x,position.y,size.x,size.y);
 
 		button.setContentAreaFilled(false);
-		
-		setIcon("source/images/islands/island"+tag+".jpg", button);
+		setIcon("source/images/islands/island"+tag+".png", button);
 		island.add(button);
 		backgroundJPanel.add(button);
 	}
