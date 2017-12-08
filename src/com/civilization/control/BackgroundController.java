@@ -15,6 +15,9 @@ import javax.swing.LayoutStyle;
 import com.civilization.View.BackgroundJPanel;
 import com.civilization.View.MapView;
 import com.civilization.model.Island;
+import com.civilization.model.Ship_1;
+import com.civilization.model.Ship_2;
+import com.civilization.model.Ship_3;
 
 //控制背景图片
 public class BackgroundController {
@@ -163,11 +166,16 @@ public class BackgroundController {
 	}
 
 	//
+	BuyShip buy=new BuyShip();
+	Ship_1 s1=new Ship_1();
+	Ship_2 s2=new Ship_2();
+	Ship_3 s3=new Ship_3();
 	private void addShopListener() {
 		mapView.getShip1().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				//购买
+				buy.Buy(lastClickIsland.getHostOfIsland(), lastClickIsland, 1, s1, s2, s3, 5);
 			}
 
 		});
@@ -175,12 +183,14 @@ public class BackgroundController {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				//购买
+				buy.Buy(lastClickIsland.getHostOfIsland(), lastClickIsland, 2, s1, s2, s3, 5);
 			}
 		});
 		mapView.getShip3().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				//购买
+				buy.Buy(lastClickIsland.getHostOfIsland(), lastClickIsland, 3, s1, s2, s3, 5);
 			}
 		});
 	}
