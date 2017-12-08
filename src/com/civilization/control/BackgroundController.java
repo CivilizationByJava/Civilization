@@ -1,22 +1,31 @@
 package com.civilization.control;
 
 import java.awt.EventQueue;
+import java.awt.Point;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.LayoutStyle;
 
+import com.civilization.View.BackgroundJPanel;
 import com.civilization.View.MapView;
+import com.civilization.model.Island;
+import com.civilization.model.Ship_1;
+import com.civilization.model.Ship_2;
+import com.civilization.model.Ship_3;
 
 //控制背景图片
 public class BackgroundController {
 
+	private Battle battle = new Battle();
 	//
 	MapView mapView = new MapView();
+	BackgroundJPanel backgroundJPanel = new BackgroundJPanel();
 	//
 	String backgroundURL = "source/images/background.jpg";
 
@@ -26,20 +35,34 @@ public class BackgroundController {
 	// 前一个位置
 	private int beginX = 0;
 
+	private int value;
+	//
+	private Point attackPanel;
 
 	private int beginY = 0;
-	private float v = 1;
 
 	boolean inBackground = false;
 
+	boolean isAttack = false;
+
+	//
+	private Island clickedIsland;
+	//
+	private Island lastClickIsland;
+	//
+	private int attackShipType;
+
 	public void initBackGroundDraw() {
 
+		mapView.showAttackPanel(-5000, -5000);
+		attackPanel = new Point(-5000, -5000);
+		// backgroundX = (int) ((mapView.getWidth() -
+		// mapView.getBackgroundJPanel().getWidth()) / 2);
+		// backgroundY = (int) ((mapView.getHeight() -
+		// mapView.getBackgroundJPanel().getHeight()) / 2);
 		mapView.getBackgroundJPanel().initData();
 
-		backgroundX = (int) ((mapView.getWidth() - mapView.getBackgroundJPanel().getWidth()) / 2);
-		backgroundY = (int) ((mapView.getHeight() - mapView.getBackgroundJPanel().getHeight()) / 2);
-
-		mapView.getBackgroundJPanel().setLocation(backgroundX, backgroundY); // 定位
+		mapView.getBackgroundJPanel().setLocation(backgroundX - 10, backgroundY - 24); // 定位
 
 		// 鼠标动作 监听器 注册
 		mapView.addMouseListener(new MouseAdapter() {
@@ -53,6 +76,19 @@ public class BackgroundController {
 			public void mouseReleased(MouseEvent e) {
 				inBackground = false;
 			}
+		});
+
+		//
+		mapView.addComponentListener(new ComponentAdapter() {
+
+			@Override
+			public void componentResized(ComponentEvent e) {
+				backgroundX = (int) ((mapView.getWidth() - mapView.getBackgroundJPanel().getWidth()) / 2);
+				backgroundY = (int) ((mapView.getHeight() - mapView.getBackgroundJPanel().getHeight()) / 2);
+				mapView.getBackgroundJPanel().initData();
+
+			}
+
 		});
 
 		// 鼠标移动 监听器 注册
@@ -69,7 +105,15 @@ public class BackgroundController {
 
 					mapView.getBackgroundJPanel().moveDrawPoint(backgroundX, backgroundY);
 					if (isInBounds()) {
+						for (JButton island : mapView.getIsland()) {
+							Point position = island.getLocation();
+							island.setLocation(new Point(position.x - changeX, position.y - chanegY));
+							//
+						}
+						mapView.showAttackPanel(mapView.getAttackPanel().getLocation().x - changeX,
+								mapView.getAttackPanel().getLocation().y - chanegY);
 						mapView.getBackgroundJPanel().repaint();
+
 					} else {
 						backgroundX += changeX;
 						backgroundY += chanegY;
@@ -79,28 +123,91 @@ public class BackgroundController {
 
 			}
 		});
-		mapView.addMouseWheelListener(new MouseWheelListener() {
-			
-			@Override
-			public void mouseWheelMoved(MouseWheelEvent e) {
 
-				if(e.getWheelRotation()==-1){
-					v+=0.1;
-					mapView.getBackgroundJPanel().setValue(v);
-					//System.out.println(v);
+		// 岛屿Button按钮监听事件
+		for (JButton island : mapView.getIsland()) {
+			island.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					// 点击岛屿\
+					if (isAttack) {
+						clickedIsland = mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
+						// 数据
+						battle.BattleStart(lastClickIsland, clickedIsland, lastClickIsland.getPlayer_Army_Kind(),
+								clickedIsland.getPlayer_Army_Kind(), value);
+						isAttack = false;
+						// 图像
+
+					} else {
+						lastClickIsland = mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
+						mapView.setClickedIsland(clickedIsland);
+						mapView.showAttackPanel(island.getLocation().x+150,island.getLocation().y-150);
+
+					}
 				}
-				if(e.getWheelRotation()==1&&v>0.5){
-					v-=0.1;
-					mapView.getBackgroundJPanel().setValue(v);
+			});
+		}
+
+		mapView.getAttackbutton().addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int value = (int) (mapView.getSpinner().getValue());
+				if (value <= lastClickIsland.getPlayer_Army_Num() && value <= 5) {
+					attackShipType = lastClickIsland.getEnemy_Kinds();
+					isAttack = true;
 				}
-				mapView.getBackgroundJPanel().repaint();
+			}
+
+		});
+		
+		addShopListener();
+
+	}
+
+	//
+	BuyShip buy=new BuyShip();
+	Ship_1 s1=new Ship_1();
+	Ship_2 s2=new Ship_2();
+	Ship_3 s3=new Ship_3();
+	private void addShopListener() {
+		mapView.getShip1().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//购买
+				buy.Buy(lastClickIsland.getHostOfIsland(), lastClickIsland, 1, s1, s2, s3, 5);
+			}
+
+		});
+		mapView.getShip2().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//购买
+				buy.Buy(lastClickIsland.getHostOfIsland(), lastClickIsland, 2, s1, s2, s3, 5);
+			}
+		});
+		mapView.getShip3().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//购买
+				buy.Buy(lastClickIsland.getHostOfIsland(), lastClickIsland, 3, s1, s2, s3, 5);
 			}
 		});
 	}
-	
+
+	private int getIslandByName(Object object) {
+		for (JButton island : mapView.getIsland()) {
+			if (island.equals(object)) {
+				return mapView.getIsland().indexOf(island);
+			}
+		}
+
+		return 0;
+	}
+
 	// 检测 点(x,y) 是否在图片上
 	private boolean isInBounds() {
-		
+
 		if (mapView.getBackgroundJPanel().getDrawX() > -mapView.getBackgroundJPanel().getWidth()
 				&& mapView.getBackgroundJPanel().getDrawX() < 0
 				&& mapView.getBackgroundJPanel().getDrawY() > -mapView.getBackgroundJPanel().getHeight()
@@ -115,6 +222,7 @@ public class BackgroundController {
 	public void initBackGroundControler() {
 		initMapView();
 		mapView.getBackgroundJPanel().setBackgroundImage(backgroundURL);
+		// mapView.setButton();
 		initBackGroundDraw();
 	}
 
@@ -132,4 +240,3 @@ public class BackgroundController {
 	}
 
 }
-	
