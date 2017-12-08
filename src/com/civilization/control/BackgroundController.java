@@ -6,11 +6,9 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.JButton;
-import javax.swing.LayoutStyle;
 
 import com.civilization.View.BackgroundJPanel;
 import com.civilization.View.MapView;
@@ -23,9 +21,10 @@ import com.civilization.model.Ship_3;
 public class BackgroundController {
 
 	private Battle battle = new Battle();
+
+	private Game game = new Game();
 	//
-	MapView mapView = new MapView();
-	BackgroundJPanel backgroundJPanel = new BackgroundJPanel();
+	private MapView mapView = new MapView(game);
 	//
 	String backgroundURL = "source/images/background.jpg";
 
@@ -37,7 +36,6 @@ public class BackgroundController {
 
 	private int value;
 	//
-	private Point attackPanel;
 
 	private int beginY = 0;
 
@@ -51,15 +49,16 @@ public class BackgroundController {
 	private Island lastClickIsland;
 	//
 	private int attackShipType;
+	
+	//
+	private int roundCount=3;
+
+	public BackgroundController() {
+	}
 
 	public void initBackGroundDraw() {
 
-		mapView.showAttackPanel(-5000, -5000);
-		attackPanel = new Point(-5000, -5000);
-		// backgroundX = (int) ((mapView.getWidth() -
-		// mapView.getBackgroundJPanel().getWidth()) / 2);
-		// backgroundY = (int) ((mapView.getHeight() -
-		// mapView.getBackgroundJPanel().getHeight()) / 2);
+		// mapView.showAttackPanel(-5000, -5000);
 		mapView.getBackgroundJPanel().initData();
 
 		mapView.getBackgroundJPanel().setLocation(backgroundX - 10, backgroundY - 24); // 定位
@@ -110,8 +109,9 @@ public class BackgroundController {
 							island.setLocation(new Point(position.x - changeX, position.y - chanegY));
 							//
 						}
-						mapView.showAttackPanel(mapView.getAttackPanel().getLocation().x - changeX,
-								mapView.getAttackPanel().getLocation().y - chanegY);
+
+						// mapView.showAttackPanel(mapView.getAttackPanel().getLocation().x - changeX,
+						// mapView.getAttackPanel().getLocation().y - chanegY);
 						mapView.getBackgroundJPanel().repaint();
 
 					} else {
@@ -129,21 +129,49 @@ public class BackgroundController {
 			island.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
-					// 点击岛屿\
+					// 点击岛
+					// 数据
 					if (isAttack) {
+						roundCount--;
+						mapView.getShopButton().setVisible(false);
 						clickedIsland = mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
-						// 数据
-						battle.BattleStart(lastClickIsland, clickedIsland, lastClickIsland.getPlayer_Army_Kind(),
-								clickedIsland.getPlayer_Army_Kind(), value);
-						isAttack = false;
+						if(clickedIsland.equals(lastClickIsland)) {
+							roundCount=0;
+						}
+						
+						if(clickedIsland.getPlayer_Army_Num()==0) {
+							Move move=new Move();
+							move.shipMove(lastClickIsland, clickedIsland, value);
+						}else {
+							
+							int lastAt = lastClickIsland.getPlayer_Army_Num();
+							int lastDt = clickedIsland.getPlayer_Army_Num();
+							
+							battle.BattleStart(lastClickIsland, clickedIsland, lastClickIsland.getPlayer_Army_Kind(),
+									clickedIsland.getPlayer_Army_Kind(), value);
+							
+							int at = lastAt - lastClickIsland.getPlayer_Army_Num();
+							int dt = lastDt - clickedIsland.getPlayer_Army_Num();
+						}
+						isAttack=false;
+						
+						if(roundCount==0) {
+							game.switchPlayer();
+							isAttack=false;
+						}
 						// 图像
 
 					} else {
 						lastClickIsland = mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
+
+						mapView.getShopButton().setVisible(true);
+
 						mapView.setClickedIsland(clickedIsland);
-						mapView.showAttackPanel(island.getLocation().x+150,island.getLocation().y-150);
+						mapView.showAttackPanel(island.getLocation().x + 150, island.getLocation().y - 150,
+								lastClickIsland);
 
 					}
+					mapView.getBackgroundJPanel().repaint();
 				}
 			});
 		}
@@ -153,44 +181,59 @@ public class BackgroundController {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int value = (int) (mapView.getSpinner().getValue());
-				if (value <= lastClickIsland.getPlayer_Army_Num() && value <= 5) {
-					attackShipType = lastClickIsland.getEnemy_Kinds();
+				if (value <= lastClickIsland.getPlayer_Army_Num() && value <= 5
+						&& lastClickIsland.getHostOfIsland().equals(game.getCurPlayer())) {
+					attackShipType = lastClickIsland.getPlayer_Army_Kind();
 					isAttack = true;
 				}
+				
 			}
 
 		});
-		
+
 		addShopListener();
 
 	}
 
 	//
-	BuyShip buy=new BuyShip();
-	Ship_1 s1=new Ship_1();
-	Ship_2 s2=new Ship_2();
-	Ship_3 s3=new Ship_3();
+	BuyShip buy = new BuyShip();
+	Ship_1 s1 = new Ship_1();
+	Ship_2 s2 = new Ship_2();
+	Ship_3 s3 = new Ship_3();
+
 	private void addShopListener() {
 		mapView.getShip1().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//购买
-				buy.Buy(lastClickIsland.getHostOfIsland(), lastClickIsland, 1, s1, s2, s3, 5);
+				// 购买
+				if(!game.getCurPlayer().equals(lastClickIsland.getHostOfIsland())) {
+					return ;
+				}
+				buy.Buy(game.getCurPlayer(), lastClickIsland, 1, s1, s2, s3, 5);
+				mapView.showAttackPanel(0, 0, lastClickIsland);
 			}
 
 		});
 		mapView.getShip2().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//购买
-				buy.Buy(lastClickIsland.getHostOfIsland(), lastClickIsland, 2, s1, s2, s3, 5);
+				// 购买
+				if(!game.getCurPlayer().equals(lastClickIsland.getHostOfIsland())) {
+					return ;
+				}
+				buy.Buy(game.getCurPlayer(), lastClickIsland, 2, s1, s2, s3, 5);
+				mapView.showAttackPanel(0, 0, lastClickIsland);
 			}
 		});
 		mapView.getShip3().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//购买
-				buy.Buy(lastClickIsland.getHostOfIsland(), lastClickIsland, 3, s1, s2, s3, 5);
+				// 购买
+				if(!game.getCurPlayer().equals(lastClickIsland.getHostOfIsland())) {
+					return ;
+				} 
+				buy.Buy(game.getCurPlayer(), lastClickIsland, 3, s1, s2, s3, 5);
+				mapView.showAttackPanel(0, 0, lastClickIsland);
 			}
 		});
 	}
@@ -237,6 +280,10 @@ public class BackgroundController {
 				}
 			}
 		});
+	}
+
+	public MapView getMapView() {
+		return mapView;
 	}
 
 }

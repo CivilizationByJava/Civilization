@@ -6,6 +6,7 @@ public class Game {
 	//
 	private Player player1=new Player();
 	private Player player2=new Player();
+
 	//
 	private Player curPlayer=player1;
 	
@@ -27,5 +28,17 @@ public class Game {
 		if(curPlayer==player1) {
 			curPlayer=player2;
 		}
+	}
+	
+	public Player getPlayer1() {
+		return player1;
+	}
+
+	public Player getPlayer2() {
+		return player2;
+	}
+
+	public Player getCurPlayer() {
+		return curPlayer;
 	}
 }

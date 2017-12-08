@@ -14,9 +14,12 @@ public class Move {
 			if (army_Num <= i1.getPlayer_Army_Num()) {
 				i1.setPlayer_Army_Num(i1.getPlayer_Army_Num() - army_Num);
 				i2.setPlayer_Army_Num(army_Num);
+				i2.setPlayer_Army_Kind(i1.getPlayer_Army_Kind());
 			} else {
 				i1.setPlayer_Army_Num(0);
 				i2.setPlayer_Army_Num(i1.getPlayer_Army_Num());
+				i2.setPlayer_Army_Kind(i1.getPlayer_Army_Kind());
+				i1.setPlayer_Army_Kind(0);
 			}
 			// 更换岛屿控制权
 			i2.setHostOfIsland(i1.getHostOfIsland());

@@ -23,8 +23,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
+import com.civilization.control.Game;
 import com.civilization.model.Island;
-
+import com.sun.jndi.url.iiopname.iiopnameURLContextFactory;
 
 public class MapView extends JFrame {
 
@@ -51,13 +52,10 @@ public class MapView extends JFrame {
 	private JLabel player2Money;
 	private JLabel player2Islands;
 	//
-	private List<Island> islandsMode=new ArrayList<>();
 
-	private JPanel player2Area;
-	//
-	private JPanel player1Area;
-	private JPanel battleArea;
-	private JLabel lblNewLabel;
+	private List<Island> islandsMode = new ArrayList<>();
+	private JLabel shopButton;
+	
 	private JButton ship1;
 	private JButton ship2;
 	private JButton ship3;
@@ -78,52 +76,122 @@ public class MapView extends JFrame {
 	private JLabel ship2Num;
 	private JSpinner spinner;
 
+	private Game game;
+
 	//
 	private Island clickedIsland;
-	
-	public void showAttackPanel(int x,int y){
-		attackPanel.setLocation(x,y);
-		
+
+	public void showAttackPanel(int x, int y, Island island) {
+		if (island.getPlayer_Army_Kind() == 1) {
+			ship1Num.setText(Integer.toString(island.getPlayer_Army_Num()));
+			ship2Num.setText("0");
+			ship3Num.setText("0");
+		} else if (island.getPlayer_Army_Kind() == 2) {
+			ship2Num.setText(Integer.toString(island.getPlayer_Army_Num()));
+			ship1Num.setText("0");
+			ship3Num.setText("0");
+		} else if (island.getPlayer_Army_Kind() == 3) {
+			ship3Num.setText(Integer.toString(island.getPlayer_Army_Num()));
+			ship2Num.setText("0");
+			ship1Num.setText("0");
+		}else {
+			ship2Num.setText("0");
+			ship1Num.setText("0");
+			ship3Num.setText("0");
+		}
+
+		//attackPanel.setLocation(x, y);
+
 	}
-	public void setAttackPanelView(){
+
+
+	public void setAttackPanelView() {
 		ship1Icon.setContentAreaFilled(false);
 		ship1Icon.setBackground(Color.WHITE);
-		setIcon("source/images/ship1.png",ship1Icon);
+		setIcon("source/images/ship1.png", ship1Icon);
 		attackPanel.add(ship1Icon);
 		ship2Icon.setContentAreaFilled(false);
 		ship2Icon.setBackground(Color.WHITE);
-		setIcon("source/images/ship2.png",ship2Icon);
+		setIcon("source/images/ship2.png", ship2Icon);
 		attackPanel.add(ship2Icon);
 		ship3Icon.setContentAreaFilled(false);
 		ship3Icon.setBackground(Color.WHITE);
-		setIcon("source/images/ship3.png",ship3Icon);
+		setIcon("source/images/ship3.png", ship3Icon);
 		attackPanel.add(ship3Icon);
 		cancelbutton.setContentAreaFilled(false);
 		attackbutton.setContentAreaFilled(false);
 		attackPanel.add(spinner);
 	}
-	public void setShopView(){
+
+	public void setShopView() {
 		panel.setVisible(false);
 		panel.setOpaque(false);
-		
+
 		ship1.setContentAreaFilled(false);
 		ship1.setBackground(Color.WHITE);
-		setIcon("source/images/ship1.png",ship1);
+		setIcon("source/images/ship1.png", ship1);
 		panel.add(ship1);
 		ship2.setContentAreaFilled(false);
 		ship2.setBackground(Color.WHITE);
-		setIcon("source/images/ship2.png",ship2);
+		setIcon("source/images/ship2.png", ship2);
 		panel.add(ship2);
 		ship3.setContentAreaFilled(false);
 		ship3.setBackground(Color.WHITE);
-		setIcon("source/images/ship3.png",ship3);
+		setIcon("source/images/ship3.png", ship3);
 		panel.add(ship3);
 		bomb.setContentAreaFilled(false);
 		bomb.setBackground(Color.WHITE);
-		setIcon("source/images/bomb.jpg",bomb);
+		setIcon("source/images/bomb.jpg", bomb);
 		panel.add(bomb);
+		
+		JLabel lblNewLabel_10 = new JLabel("城防（三回合）");
+		lblNewLabel_10.setBounds(21, 586, 110, 18);
+		panel.add(lblNewLabel_10);
+		
+		JLabel lblNewLabel_11 = new JLabel("指挥官（一名）");
+		lblNewLabel_11.setBounds(21, 667, 110, 18);
+		panel.add(lblNewLabel_11);
+		
+		JLabel lblNewLabel_12 = new JLabel("冲锋号角（一个）");
+		lblNewLabel_12.setBounds(11, 738, 120, 18);
+		panel.add(lblNewLabel_12);
+		
+		JLabel lblNewLabel_13 = new JLabel("建都（三个）");
+		lblNewLabel_13.setBounds(32, 810, 109, 18);
+		panel.add(lblNewLabel_13);
+		
+		JLabel lblNewLabel_14 = new JLabel("征兵(五级)");
+		lblNewLabel_14.setBounds(32, 492, 88, 18);
+		panel.add(lblNewLabel_14);
+		
+		JButton conscriptionButton = new JButton("50$");
+		conscriptionButton.setBounds(32, 524, 70, 27);
+		panel.add(conscriptionButton);
+		
+		JButton cityButton = new JButton("40$");
+		cityButton.setBounds(32, 617, 70, 27);
+		panel.add(cityButton);
+		
+		JButton commandButton = new JButton("100$");
+		commandButton.setBounds(32, 698, 70, 27);
+		panel.add(commandButton);
+		
+		JButton hornButton = new JButton("70$");
+		hornButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		hornButton.setBounds(32, 772, 70, 27);
+		panel.add(hornButton);
+		
+		JButton capitalButton = new JButton("1000 $");
+		capitalButton.setBounds(32, 841, 88, 27);
+		panel.add(capitalButton);
 	}
-	public MapView() {
+
+	public MapView(Game game) {
+
+		this.game = game;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.setBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds());
@@ -151,67 +219,107 @@ public class MapView extends JFrame {
 
 		player2Islands = new JLabel("islands2");
 
-		player1Area = new JPanel();
-		player1Area.setVisible(false);
-
-		player2Area = new JPanel();
-		player2Area.setVisible(false);
-
-		battleArea = new JPanel();
-		battleArea.setVisible(false);
-		
 		panel = new JPanel();
-		
+
 		attackPanel = new JPanel();
 		attackPanel.setOpaque(false);
+		
+		JPanel infoPanel = new JPanel();
 		GroupLayout gl_backgroundJPanel = new GroupLayout(backgroundJPanel);
 		gl_backgroundJPanel.setHorizontalGroup(
-			gl_backgroundJPanel.createParallelGroup(Alignment.TRAILING)
+			gl_backgroundJPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_backgroundJPanel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(attackPanel, GroupLayout.PREFERRED_SIZE, 194, GroupLayout.PREFERRED_SIZE)
-					.addGap(26)
-					.addComponent(player1Area, GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(battleArea, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(player2Area, GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
-				.addComponent(playerInfo, GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE)
+
+					.addGroup(gl_backgroundJPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_backgroundJPanel.createSequentialGroup()
+							.addGap(271)
+							.addComponent(attackPanel, GroupLayout.DEFAULT_SIZE, 1451, Short.MAX_VALUE))
+						.addGroup(gl_backgroundJPanel.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(infoPanel, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)))
+					.addGap(22)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE))
+				.addComponent(playerInfo, GroupLayout.DEFAULT_SIZE, 1892, Short.MAX_VALUE)
+
 		);
 		gl_backgroundJPanel.setVerticalGroup(
 			gl_backgroundJPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_backgroundJPanel.createSequentialGroup()
 					.addComponent(playerInfo, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+
 					.addGroup(gl_backgroundJPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_backgroundJPanel.createSequentialGroup()
+						.addGroup(gl_backgroundJPanel.createSequentialGroup()
+							.addGap(184)
+							.addComponent(attackPanel, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 233, Short.MAX_VALUE)
+							.addComponent(infoPanel, GroupLayout.PREFERRED_SIZE, 290, GroupLayout.PREFERRED_SIZE))
+
+						.addGroup(gl_backgroundJPanel.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(attackPanel, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.TRAILING, gl_backgroundJPanel.createParallelGroup(Alignment.TRAILING)
-							.addGroup(gl_backgroundJPanel.createSequentialGroup()
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE))
-							.addGroup(gl_backgroundJPanel.createSequentialGroup()
-								.addGap(98)
-								.addGroup(gl_backgroundJPanel.createParallelGroup(Alignment.LEADING)
-									.addComponent(player2Area, Alignment.TRAILING, 0, 0, Short.MAX_VALUE)
-									.addComponent(battleArea, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
-									.addComponent(player1Area, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)))))
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE)))
 					.addContainerGap())
 		);
+		infoPanel.setLayout(null);
 		
+		JLabel label_1 = new JLabel("所属玩家：");
+		label_1.setBounds(14, 13, 90, 29);
+		infoPanel.add(label_1);
+		
+		JLabel playerLabel = new JLabel("null");
+		playerLabel.setBounds(100, 18, 72, 18);
+		infoPanel.add(playerLabel);
+		
+		JLabel label_2 = new JLabel("征兵等级：");
+		label_2.setBounds(14, 70, 90, 18);
+		infoPanel.add(label_2);
+		
+		JLabel lblNewLabel_2 = new JLabel("城防等级：");
+		lblNewLabel_2.setBounds(14, 118, 82, 18);
+		infoPanel.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("指挥官：");
+		lblNewLabel_3.setBounds(14, 171, 72, 18);
+		infoPanel.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("冲锋号角：");
+		lblNewLabel_4.setBounds(14, 226, 90, 18);
+		infoPanel.add(lblNewLabel_4);
+		
+		JLabel label_3 = new JLabel("是否首都：");
+		label_3.setBounds(22, 272, 82, 18);
+		infoPanel.add(label_3);
+		
+		JLabel conscriptionLabel = new JLabel("0");
+		conscriptionLabel.setBounds(100, 70, 72, 18);
+		infoPanel.add(conscriptionLabel);
+		
+		JLabel cityLabel = new JLabel("0");
+		cityLabel.setBounds(100, 118, 72, 18);
+		infoPanel.add(cityLabel);
+		
+		JLabel commandLabel = new JLabel("0");
+		commandLabel.setBounds(100, 171, 72, 18);
+		infoPanel.add(commandLabel);
+		
+		JLabel hornLabel = new JLabel("0");
+		hornLabel.setBounds(100, 226, 72, 18);
+		infoPanel.add(hornLabel);
+		
+		JLabel capitalLabel = new JLabel("false");
+		capitalLabel.setBounds(100, 272, 72, 18);
+		infoPanel.add(capitalLabel);
+		
+
 		cancelbutton = new JButton("cancel");
 		cancelbutton.setBounds(14, 157, 81, 27);
 		cancelbutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				attackPanel.setLocation(-5000,-5000);
+				attackPanel.setLocation(-5000, -5000);
 			}
 		});
 		attackPanel.setLayout(null);
 		attackPanel.add(cancelbutton);
-		
+
 		attackbutton = new JButton("attack");
 		attackbutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -219,215 +327,201 @@ public class MapView extends JFrame {
 		});
 		attackbutton.setBounds(117, 157, 81, 27);
 		attackPanel.add(attackbutton);
-		
+
 		ship1Icon = new JButton("New button");
 		ship1Icon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		ship1Icon.setBounds(0, 13, 58, 44);
-		
-		
+
 		ship3Icon = new JButton("New button");
 		ship3Icon.setBounds(143, 13, 55, 44);
-		
-		
+
 		ship2Icon = new JButton("New button");
 		ship2Icon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
 		ship2Icon.setBounds(72, 13, 57, 44);
-		
-		
-		ship1Num = new JLabel("20");
+
+		ship1Num = new JLabel("0");
 		ship1Num.setBounds(14, 70, 28, 18);
 		attackPanel.add(ship1Num);
-		
-		ship2Num = new JLabel("20");
+
+		ship2Num = new JLabel("0");
 		ship2Num.setBounds(88, 70, 24, 18);
 		attackPanel.add(ship2Num);
-		
-		ship3Num = new JLabel("20");
+
+		ship3Num = new JLabel("0");
 		ship3Num.setBounds(158, 70, 29, 18);
 		attackPanel.add(ship3Num);
-		
+
 		spinner = new JSpinner();
 		spinner.setBounds(84, 95, 46, 24);
 		spinner.setModel(new SpinnerNumberModel(2, 1, 5, 1));
-	//	attackPanel.add(spinner);
-		
-		lblNewLabel = new JLabel("shop");
-		lblNewLabel.addMouseListener(new MouseAdapter() {
-			boolean bool=true;
+		// attackPanel.add(spinner);
+
+		shopButton = new JLabel("shop");
+		shopButton.setVisible(false);
+		shopButton.addMouseListener(new MouseAdapter() {
+			boolean bool = true;
+
 			public void mouseClicked(MouseEvent arg0) {
-				if(bool){
+				if (bool) {
 					panel.setVisible(true);
-				}else{
+				} else {
 					panel.setVisible(false);
 				}
-				bool=!bool;
+				bool = !bool;
 			}
 		});
 		GroupLayout gl_playerInfo = new GroupLayout(playerInfo);
-		gl_playerInfo.setHorizontalGroup(
-			gl_playerInfo.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_playerInfo.createSequentialGroup()
-					.addGap(14)
-					.addComponent(player1Name, GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-					.addGap(33)
-					.addComponent(player1Money, GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-					.addGap(70)
-					.addComponent(player1Islands, GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-					.addGap(108)
-					.addComponent(player2Name, GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-					.addGap(91)
-					.addComponent(player2Money, GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-					.addGap(95)
-					.addComponent(player2Islands, GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-					.addGap(107)
-					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-					.addGap(23))
-		);
-		gl_playerInfo.setVerticalGroup(
-			gl_playerInfo.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_playerInfo.createSequentialGroup()
-					.addGap(13)
-					.addComponent(player1Name, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_playerInfo.createSequentialGroup()
-					.addGap(22)
-					.addComponent(player1Money))
-				.addGroup(gl_playerInfo.createSequentialGroup()
-					.addGap(22)
-					.addComponent(player1Islands))
-				.addGroup(gl_playerInfo.createSequentialGroup()
-					.addGap(22)
-					.addComponent(player2Name))
-				.addGroup(gl_playerInfo.createSequentialGroup()
-					.addGap(22)
-					.addGroup(gl_playerInfo.createParallelGroup(Alignment.BASELINE)
-						.addComponent(player2Money)
-						.addComponent(player2Islands)
-						.addComponent(lblNewLabel)))
-		);
+		gl_playerInfo.setHorizontalGroup(gl_playerInfo.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_playerInfo.createSequentialGroup().addGap(14)
+						.addComponent(player1Name, GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE).addGap(33)
+						.addComponent(player1Money, GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE).addGap(70)
+						.addComponent(player1Islands, GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE).addGap(108)
+						.addComponent(player2Name, GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE).addGap(91)
+						.addComponent(player2Money, GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE).addGap(95)
+						.addComponent(player2Islands, GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE).addGap(107)
+						.addComponent(shopButton, GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE).addGap(23)));
+		gl_playerInfo.setVerticalGroup(gl_playerInfo.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_playerInfo.createSequentialGroup().addGap(13).addComponent(player1Name,
+						GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_playerInfo.createSequentialGroup().addGap(22).addComponent(player1Money))
+				.addGroup(gl_playerInfo.createSequentialGroup().addGap(22).addComponent(player1Islands))
+				.addGroup(gl_playerInfo.createSequentialGroup().addGap(22).addComponent(player2Name))
+				.addGroup(gl_playerInfo.createSequentialGroup().addGap(22)
+						.addGroup(gl_playerInfo.createParallelGroup(Alignment.BASELINE).addComponent(player2Money)
+								.addComponent(player2Islands).addComponent(shopButton))));
 		playerInfo.setLayout(gl_playerInfo);
-		
+
 		ship1 = new JButton("ship1");
 		ship1.setBounds(0, 0, 131, 67);
-		
+
 		ship2 = new JButton("ship2");
 		ship2.setBounds(0, 106, 131, 75);
-		
+
 		ship3 = new JButton("ship3");
 		ship3.setBounds(0, 225, 131, 75);
-		
+
 		ship3Price = new JLabel("50$/5");
 		ship3Price.setBounds(58, 308, 31, 18);
-		
+
 		ship2Price = new JLabel("40$/5");
 		ship2Price.setBounds(48, 194, 41, 18);
-		
+
 		ship1Price = new JLabel("50$/5");
 		ship1Price.setBounds(58, 75, 31, 18);
 		panel.setLayout(null);
 		panel.add(ship3Price);
 		panel.add(ship2Price);
 		panel.add(ship1Price);
-		
+
 		bomb = new JButton("bomb");
-		bomb.setBounds(34, 339, 70, 49);
-	
+		bomb.setBounds(32, 342, 70, 49);
+
 		label = new JLabel("50$/1");
 		label.setBounds(58, 404, 31, 18);
 		panel.add(label);
-		GroupLayout gl_player1Area = new GroupLayout(player1Area);
-		gl_player1Area.setHorizontalGroup(
-				gl_player1Area.createParallelGroup(Alignment.LEADING).addGap(0, 404, Short.MAX_VALUE));
-		gl_player1Area.setVerticalGroup(
-				gl_player1Area.createParallelGroup(Alignment.LEADING).addGap(0, 451, Short.MAX_VALUE));
-		player1Area.setLayout(gl_player1Area);
-		GroupLayout gl_player2Area = new GroupLayout(player2Area);
-		gl_player2Area.setHorizontalGroup(
-				gl_player2Area.createParallelGroup(Alignment.LEADING).addGap(0, 438, Short.MAX_VALUE));
-		gl_player2Area.setVerticalGroup(
-				gl_player2Area.createParallelGroup(Alignment.LEADING).addGap(0, 451, Short.MAX_VALUE));
-		player2Area.setLayout(gl_player2Area);
 		backgroundJPanel.setLayout(gl_backgroundJPanel);
 		setShopView();
 		setAttackPanelView();
 	}
 
-
 	public void setButton() {
 		addIsland(new Point(-900, 450), new Point(300, 300), 4);
 		Island island_1 = new Island("main", 0);
+		island_1.setHostOfIsland(game.getPlayer1());
+		island_1.setPlayer_Army_Kind(1);
+		island_1.setPlayer_Army_Num(4);
 		islandsMode.add(island_1);
 		addIsland(new Point(-560, -200), new Point(150, 150), 2);
 		Island island_2 = new Island("small", 1);
+		island_2.setPlayer_Army_Kind(1);
+		island_2.setPlayer_Army_Num(2);
 		islandsMode.add(island_2);
 		addIsland(new Point(-500, 400), new Point(150, 150), 3);
 		Island island_3 = new Island("small", 1);
+		island_3.setPlayer_Army_Kind(2);
+		island_3.setPlayer_Army_Num(4);
 		islandsMode.add(island_3);
 		addIsland(new Point(-560, 900), new Point(150, 150), 3);
 		Island island_4 = new Island("small", 1);
+		island_4.setPlayer_Army_Kind(1);
+		island_4.setPlayer_Army_Num(3);
 		islandsMode.add(island_4);
 		addIsland(new Point(-100, 400), new Point(150, 150), 5);
 		Island island_5 = new Island("small", 2);
+		island_5.setPlayer_Army_Kind(5);
+		island_5.setPlayer_Army_Num(4);
 		islandsMode.add(island_5);
 		addIsland(new Point(-100, 900), new Point(150, 150), 6);
 		Island island_6 = new Island("small", 2);
+		island_6.setPlayer_Army_Kind(1);
+		island_6.setPlayer_Army_Num(1);
 		islandsMode.add(island_6);
 		addIsland(new Point(300, 450), new Point(200, 200), 7);
 		Island island_7 = new Island("big", 3);
+		island_7.setPlayer_Army_Kind(3);
+		island_7.setPlayer_Army_Num(4);
 		islandsMode.add(island_7);
 		addIsland(new Point(900, 450), new Point(300, 300), 5);
 		Island island_8 = new Island("main", 4);
+		island_8.setPlayer_Army_Kind(1);
+		island_8.setPlayer_Army_Num(2);
 		islandsMode.add(island_8);
 		addIsland(new Point(1500, 450), new Point(200, 200), 2);
 		Island island_9 = new Island("big", 5);
+		island_9.setPlayer_Army_Kind(1);
+		island_9.setPlayer_Army_Num(1);
 		islandsMode.add(island_9);
 		addIsland(new Point(1900, 400), new Point(150, 150), 3);
 		Island island_10 = new Island("small", 6);
+		island_10.setPlayer_Army_Kind(2);
+		island_10.setPlayer_Army_Num(2);
 		islandsMode.add(island_10);
 		addIsland(new Point(1900, 900), new Point(150, 150), 6);
 		Island island_11 = new Island("small", 6);
+		island_11.setPlayer_Army_Kind(3);
+		island_11.setPlayer_Army_Num(3);
 		islandsMode.add(island_11);
 		addIsland(new Point(2240, -200), new Point(150, 150), 6);
 		Island island_12 = new Island("small", 7);
+		island_12.setPlayer_Army_Kind(2);
+		island_12.setPlayer_Army_Num(1);
 		islandsMode.add(island_12);
 		addIsland(new Point(2300, 450), new Point(150, 150), 5);
 		Island island_13 = new Island("small", 7);
+		island_13.setPlayer_Army_Kind(1);
+		island_13.setPlayer_Army_Num(4);
 		islandsMode.add(island_13);
 		addIsland(new Point(2240, 900), new Point(150, 150), 7);
 		Island island_14 = new Island("small", 7);
+		island_14.setPlayer_Army_Kind(1);
+		island_14.setPlayer_Army_Num(4);
 		islandsMode.add(island_14);
 		addIsland(new Point(2500, 450), new Point(300, 300), 4);
 		Island island_15 = new Island("main", 8);
+		island_15.setHostOfIsland(game.getPlayer2());
+		island_15.setPlayer_Army_Kind(1);
+		island_15.setPlayer_Army_Num(4);
 		islandsMode.add(island_15);
 
 	}
-		
-		
-	public JPanel getPlayer1Area() {
-		return player1Area;
-	}
-
-	public JPanel getBattleArea() {
-		return battleArea;
-	}
 
 
-	
-	
-	private void addIsland(Point position,Point size,int tag) {
+
+	private void addIsland(Point position, Point size, int tag) {
 		JButton button = new JButton();
 		button.setBorderPainted(false);
 		button.setBackground(Color.WHITE);
 
-		button.setBounds(position.x,position.y,size.x,size.y);
+		button.setBounds(position.x, position.y, size.x, size.y);
 
 		button.setContentAreaFilled(false);
-		setIcon("source/images/islands/island"+tag+".png", button);
+		setIcon("source/images/islands/island" + tag + ".png", button);
 		island.add(button);
 		backgroundJPanel.add(button);
 	}
@@ -501,7 +595,9 @@ public class MapView extends JFrame {
 	public JButton getShip3() {
 		return ship3;
 	}
-	
-	
-	
+
+	public JLabel getShopButton() {
+		return shopButton;
+	}
+
 }

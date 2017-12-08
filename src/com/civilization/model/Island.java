@@ -21,7 +21,7 @@ public class Island {
 	// 岛链等级，只有相邻的两个岛链上的岛才能互相伤害
 	private int island_Level;
 	// 岛屿的占领者:player1,player2,中立 三种
-	private Player HostOfIsland;
+	private Player HostOfIsland=new Player();
 	// 岛屿上玩家军队的种类:1,2,3三种
 	private int Player_Army_Kind;
 	// 岛屿上玩家军队的数量
