@@ -17,13 +17,17 @@ public class MapView extends JFrame {
 	private static final long serialVersionUID = 1L;
 	//
 	private BackgroundJPanel backgroundJPanel;
+	//
 	private JLabel player1Name;
 	private JLabel player1Money;
 	private JLabel player1Islands;
+	//
 	private JLabel player2Name;
 	private JLabel player2Money;
 	private JLabel player2Islands;
+	//
 	private JPanel player2Area;
+	//
 	private JPanel player1Area;
 	private JPanel battleArea;
 
