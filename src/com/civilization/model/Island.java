@@ -71,18 +71,13 @@ public class Island {
 		this.island_Level = island_Level;
 	}
 	
+	public Island(String islandKinds, int islandLevel) {
+		Island_Kinds = islandKinds;
+		island_Level = islandLevel;
+	}
 
 	
 	//尚未设定每种岛的具体收入，所以用123代替，我觉得大概是主岛最高，大岛次之，小岛最少
-	public int IslandMoneyPerRound(String IslandKind) {
-		int gettedMoney = 0;
-		switch(IslandKind)
-		{
-		case "Main":gettedMoney=1;break;
-		case "Big":gettedMoney=2;break;
-		case "Small":gettedMoney=3;break;
-		}
-		return gettedMoney;
-	}
+
 	
 }

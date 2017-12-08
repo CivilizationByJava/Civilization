@@ -25,16 +25,6 @@ import javax.swing.border.EmptyBorder;
 
 import com.civilization.model.Island;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.XPath.Step;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JScrollBar;
-import javax.swing.JTextField;
-import javax.swing.JSpinner;
-
 public class MapView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -86,9 +76,11 @@ public class MapView extends JFrame {
 	private JLabel ship3Num;
 	private JLabel ship2Num;
 	private JSpinner spinner;
+
+	//
+	private Island clickedIsland;
 	
 	public void showAttackPanel(int x,int y){
-		attackPanel.setVisible(true);
 		attackPanel.setLocation(x,y);
 		
 	}
@@ -213,12 +205,17 @@ public class MapView extends JFrame {
 		cancelbutton.setBounds(14, 157, 81, 27);
 		cancelbutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				attackPanel.setLocation(-5000,-5000);
 			}
 		});
 		attackPanel.setLayout(null);
 		attackPanel.add(cancelbutton);
 		
 		attackbutton = new JButton("attack");
+		attackbutton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		attackbutton.setBounds(117, 157, 81, 27);
 		attackPanel.add(attackbutton);
 		
@@ -361,21 +358,52 @@ public class MapView extends JFrame {
 
 
 	public void setButton() {
-		addIsland(new Point(-800, 450), new Point(200, 200), 1);
-		addIsland(new Point(-560, -200), new Point(200, 200), 1);
-		addIsland(new Point(-500, 400), new Point(200, 200), 1);
-		addIsland(new Point(-560, 900), new Point(200, 200), 1);
-		addIsland(new Point(-100, 400), new Point(200, 200), 1);
-		addIsland(new Point(-100, 900), new Point(200, 200), 1);
+		addIsland(new Point(-800, 450), new Point(300, 300), 1);
+		Island island_1 = new Island("main", 0);
+		islandsMode.add(island_1);
+		addIsland(new Point(-560, -200), new Point(150, 150), 1);
+		Island island_2 = new Island("small", 1);
+		islandsMode.add(island_2);
+		addIsland(new Point(-500, 400), new Point(150, 150), 1);
+		Island island_3 = new Island("small", 1);
+		islandsMode.add(island_3);
+		addIsland(new Point(-560, 900), new Point(150, 150), 1);
+		Island island_4 = new Island("small", 1);
+		islandsMode.add(island_4);
+		addIsland(new Point(-100, 400), new Point(150, 150), 1);
+		Island island_5 = new Island("small", 2);
+		islandsMode.add(island_5);
+		addIsland(new Point(-100, 900), new Point(150, 150), 1);
+		Island island_6 = new Island("small", 2);
+		islandsMode.add(island_6);
 		addIsland(new Point(300, 450), new Point(200, 200), 1);
-		addIsland(new Point(900, 450), new Point(200, 200), 1);
+		Island island_7 = new Island("big", 3);
+		islandsMode.add(island_7);
+		addIsland(new Point(900, 450), new Point(300, 300), 1);
+		Island island_8 = new Island("main", 4);
+		islandsMode.add(island_8);
 		addIsland(new Point(1500, 450), new Point(200, 200), 1);
-		addIsland(new Point(1900, 400), new Point(200, 200), 1);
-		addIsland(new Point(1900, 900), new Point(200, 200), 1);
-		addIsland(new Point(2240, -200), new Point(200, 200), 1);
-		addIsland(new Point(2300, 450), new Point(200, 200), 1);
-		addIsland(new Point(2240, 900), new Point(200, 200), 1);
-		addIsland(new Point(2600, 450), new Point(200, 200), 1);
+		Island island_9 = new Island("big", 5);
+		islandsMode.add(island_9);
+		addIsland(new Point(1900, 400), new Point(150, 150), 1);
+		Island island_10 = new Island("small", 6);
+		islandsMode.add(island_10);
+		addIsland(new Point(1900, 900), new Point(150, 150), 1);
+		Island island_11 = new Island("small", 6);
+		islandsMode.add(island_11);
+		addIsland(new Point(2240, -200), new Point(150, 150), 1);
+		Island island_12 = new Island("small", 7);
+		islandsMode.add(island_12);
+		addIsland(new Point(2300, 450), new Point(150, 150), 1);
+		Island island_13 = new Island("small", 7);
+		islandsMode.add(island_13);
+		addIsland(new Point(2240, 900), new Point(150, 150), 1);
+		Island island_14 = new Island("small", 7);
+		islandsMode.add(island_14);
+		addIsland(new Point(2500, 450), new Point(300, 300), 1);
+		Island island_15 = new Island("main", 8);
+		islandsMode.add(island_15);
+
 	}
 		
 		
@@ -445,5 +473,22 @@ public class MapView extends JFrame {
 	public JPanel getAttackPanel() {
 		return attackPanel;
 	}
+
+	public JButton getAttackbutton() {
+		return attackbutton;
+	}
+
+	public JSpinner getSpinner() {
+		return spinner;
+	}
+
+	public void setClickedIsland(Island clickedIsland) {
+		this.clickedIsland = clickedIsland;
+	}
+
+	public List<Island> getIslandsMode() {
+		return islandsMode;
+	}
+	
 	
 }

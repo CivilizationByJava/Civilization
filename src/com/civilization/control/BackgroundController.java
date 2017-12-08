@@ -12,6 +12,7 @@ import javax.swing.JButton;
 
 import com.civilization.View.BackgroundJPanel;
 import com.civilization.View.MapView;
+import com.civilization.model.Island;
 import com.sun.javafx.sg.prism.web.NGWebView;
 
 import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
@@ -37,6 +38,13 @@ public class BackgroundController {
 	private int beginY = 0;
 
 	boolean inBackground = false;
+	
+	boolean isAttack=false;
+	
+	//
+	private Island clickedIsland;
+	//
+	private int attackShipType;
 
 	public void initBackGroundDraw() {
 		
@@ -114,11 +122,39 @@ public class BackgroundController {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
 					//点击岛屿\
-					mapView.showAttackPanel(island.getLocation().x,island.getLocation().y+200);
+					if(isAttack) {
+					
+					}else {
+						clickedIsland=mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
+						mapView.setClickedIsland(clickedIsland);
+						mapView.showAttackPanel(island.getLocation().x,island.getLocation().y+200);
+					}
 				}
 			});
 		}
 		
+		mapView.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if((int)(mapView.getSpinner().getValue())<=clickedIsland.getPlayer_Army_Num()) {
+					attackShipType=clickedIsland.getEnemy_Kinds();
+					isAttack=true;
+				}
+			}
+			
+		});
+		
+	}
+
+	private int getIslandByName(Object object) {
+		for(JButton island:mapView.getIsland()) {
+			if(island.equals(object)) {
+				return mapView.getIsland().indexOf(island);
+			}
+		}
+		
+		return 0;
 	}
 	
 	// 检测 点(x,y) 是否在图片上
