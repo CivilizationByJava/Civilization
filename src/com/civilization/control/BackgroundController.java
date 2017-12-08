@@ -132,7 +132,7 @@ public class BackgroundController {
 					}else {
 						lastClickIsland=mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
 						mapView.setClickedIsland(clickedIsland);
-						mapView.showAttackPanel(island.getLocation().x,island.getLocation().y+200);
+						mapView.showAttackPanel(island.getLocation().x+150,island.getLocation().y-150);
 					}
 				}
 			});
