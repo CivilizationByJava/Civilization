@@ -193,7 +193,8 @@ public class BackgroundController {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// 购买
-				buy.Buy(lastClickIsland.getHostOfIsland(), lastClickIsland, 1, s1, s2, s3, 5);
+				buy.Buy(game.getCurPlayer(), lastClickIsland, 1, s1, s2, s3, 5);
+				mapView.showAttackPanel(0, 0, lastClickIsland);
 			}
 
 		});
@@ -201,14 +202,14 @@ public class BackgroundController {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// 购买
-				buy.Buy(lastClickIsland.getHostOfIsland(), lastClickIsland, 2, s1, s2, s3, 5);
+				buy.Buy(game.getCurPlayer(), lastClickIsland, 2, s1, s2, s3, 5);
 			}
 		});
 		mapView.getShip3().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// 购买
-				buy.Buy(lastClickIsland.getHostOfIsland(), lastClickIsland, 3, s1, s2, s3, 5);
+				buy.Buy(game.getCurPlayer(), lastClickIsland, 3, s1, s2, s3, 5);
 			}
 		});
 	}
