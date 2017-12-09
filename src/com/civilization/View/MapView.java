@@ -438,6 +438,8 @@ public class MapView extends JFrame {
 		panel.add(label);
 		backgroundJPanel.setLayout(gl_backgroundJPanel);
 		setShopView();
+		setAttackPanelView();
+		
 		
 	}
 
