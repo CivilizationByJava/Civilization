@@ -3,7 +3,7 @@ package com.civilization.control;
 import com.civilization.model.Island;
 import com.civilization.model.Player;
 
-public class getMoney {
+public class GetMoney {
 
 	// 该函数每回合运行一次
 	public void moneyGet(Player p) {
