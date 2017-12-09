@@ -16,7 +16,7 @@ import com.civilization.control.BackgroundController;
 public class BackgroundJPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	// 背静图片
+	// 背静图片\
 	private Image backgroundImage;
 	//
 	private int initDrawX;
@@ -45,7 +45,6 @@ public class BackgroundJPanel extends JPanel {
 
 	private void drawBackground(Graphics graphics) {
 		if (backgroundImage != null) {
-
 			int width = (int) (getWidth() * mapSizeX);
 			int height = (int) (getHeight() * mapSizeX);
 			graphics.drawImage(backgroundImage, drawX, drawY, width, height, null);

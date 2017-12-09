@@ -1,5 +1,8 @@
 package com.civilization.mainstript;
 
+import java.awt.EventQueue;
+
+import com.civilization.View.StartView;
 import com.civilization.control.MainController;
 import com.civilization.control.Music;
 
@@ -12,7 +15,19 @@ public class MainStript {
 	public static void main(String[] args) {
 
 		//初始化游戏
-		mainController.initGame();
+		//mainController.initGame();
 		//musicPlay.musicPlayer_Begin(true);
+		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					StartView frame = new StartView();
+					frame.repaint();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }
