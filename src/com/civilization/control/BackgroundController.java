@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import com.civilization.View.BackgroundJPanel;
 import com.civilization.View.MapView;
@@ -16,6 +17,8 @@ import com.civilization.model.Island;
 import com.civilization.model.Ship_1;
 import com.civilization.model.Ship_2;
 import com.civilization.model.Ship_3;
+
+import jdk.nashorn.internal.ir.WithNode;
 
 //控制背景图片
 public class BackgroundController {
@@ -152,6 +155,7 @@ public class BackgroundController {
 						
 						if(roundCount==0) {
 							game.switchPlayer();
+							JOptionPane.showConfirmDialog(mapView, "当前玩家"+game.getCurPlayer().getPlayerID());
 							mapView.showMoney();
 							isAttack=false;
 						}
@@ -160,6 +164,9 @@ public class BackgroundController {
 
 					} else {
 						lastClickIsland = mapView.getIslandsMode().get(getIslandByName(arg0.getSource()));
+
+
+						mapView.getIslandInfo(lastClickIsland);
 
 						mapView.getShopButton().setVisible(true);
 

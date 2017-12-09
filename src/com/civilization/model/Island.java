@@ -21,11 +21,68 @@ public class Island {
 	// 岛链等级，只有相邻的两个岛链上的岛才能互相伤害
 	private int island_Level;
 	// 岛屿的占领者:player1,player2,中立 三种
-	private Player HostOfIsland=new Player();
+	private Player HostOfIsland=new Player("无人占领");
 	// 岛屿上玩家军队的种类:1,2,3三种
 	private int Player_Army_Kind;
 	// 岛屿上玩家军队的数量
-	private int Player_Army_Num=0;
+		private int Player_Army_Num=0;
+		//初始化岛的征兵等级
+		private int conscription=0;
+		//岛上是否有城防
+		private boolean iscity=false;
+		//是否有长官
+		private int command=0;
+		//冲锋号角数量
+		private int horn=0;
+		//都城个数
+		private boolean Iscapital=false;
+		
+		public boolean isIscapital() {
+			return Iscapital;
+		}
+		public void setIscapital(boolean iscapital) {
+			Iscapital = iscapital;
+		}
+		public void setConscription(int conscription) {
+			this.conscription = conscription;
+		}
+		public void setIscity(boolean iscity) {
+			this.iscity = iscity;
+		}
+		public void setCommand(int command) {
+			this.command = command;
+		}
+		public void setHorn(int horn) {
+			this.horn = horn;
+		}
+
+		public String getPlayerName(){
+			return HostOfIsland.getPlayerID();
+		
+		}
+		public int getConscription() {
+			return conscription;
+		}
+
+		public boolean isIscity() {
+			return iscity;
+		}
+
+
+		public int getCommand() {
+			return command;
+		}
+
+
+		public int getHorn() {
+			return horn;
+		}
+
+
+		public boolean getCapital() {
+			return Iscapital;
+		}
+
 
 	public Player getHostOfIsland() {
 		return HostOfIsland;

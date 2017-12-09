@@ -4,7 +4,7 @@ package com.civilization.model;
 public class Player {
 
 	// 玩家ID
-	private String Playerid;
+	private String Playerid="无人占领";
 	// 玩家拥有的金钱数目
 	private int money=1000;
 	// 玩家拥有的岛屿数量(主要，大型，小型)
@@ -21,6 +21,10 @@ public class Player {
 	private int Ship3_Num=0;
 	// 玩家主基地剩余生命值
 	private int Base_HP;
+	public Player(String i){
+		Playerid=i;
+	}
+
 
 	public String getPlayerID() {
 		return this.Playerid;
