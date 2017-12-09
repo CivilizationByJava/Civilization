@@ -242,6 +242,7 @@ public class MapView extends JFrame {
 		attackPanel.setOpaque(false);
 
 		infoPanel = new JPanel();
+		infoPanel.setOpaque(false);
 		GroupLayout gl_backgroundJPanel = new GroupLayout(backgroundJPanel);
 		gl_backgroundJPanel.setHorizontalGroup(
 			gl_backgroundJPanel.createParallelGroup(Alignment.LEADING)
@@ -284,7 +285,7 @@ public class MapView extends JFrame {
 		label_2.setBounds(14, 70, 90, 18);
 		infoPanel.add(label_2);
 
-		lblNewLabel = new JLabel("城防等级：");
+		lblNewLabel = new JLabel("是否城防：");
 		lblNewLabel.setBounds(14, 118, 82, 18);
 		infoPanel.add(lblNewLabel);
 
@@ -437,7 +438,7 @@ public class MapView extends JFrame {
 		panel.add(label);
 		backgroundJPanel.setLayout(gl_backgroundJPanel);
 		setShopView();
-		setAttackPanelView();
+		
 	}
 
 	public void setButton() {

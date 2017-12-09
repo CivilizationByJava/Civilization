@@ -103,8 +103,8 @@ public class Battle {
 
 		// T 按伤害从高到低依次排列,假装已经排完序了
 		// 最高对最高，第二对第二，以此类推，数值小的一方GG
-		int atk_GG_Num = 0;
-		int def_GG_Num = 0;
+		int atk_GG_Num =  random.nextInt(atk_atkMax)+1;
+		int def_GG_Num = random.nextInt(def_atkMax)+1;
 		for (int i = 0; i <= Player_Atk_Army(I_atk, I_def) && i <= Player_Def_Army(I_def); i++) {
 			if (atk_Dam[i] > def_Dam[i]) {
 				def_GG_Num++;

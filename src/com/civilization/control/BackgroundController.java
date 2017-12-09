@@ -54,7 +54,7 @@ public class BackgroundController {
 	private int attackShipType;
 	
 	//
-	private int roundCount=30;
+	private int roundCount=3;
 
 	public BackgroundController() {
 	}
