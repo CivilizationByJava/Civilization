@@ -1,6 +1,7 @@
 package com.civilization.View;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Point;
@@ -92,6 +93,11 @@ public class MapView extends JFrame {
 	private JLabel lblNewLabel_2;
 	private JLabel hornLabel;
 	private JLabel capitalLabel;
+	private JButton conscriptionButton;
+	private JButton cityButton;
+	private JButton commandButton;
+	private JButton hornButton;
+	private JButton capitalButton;
 
 	public void showAttackPanel(int x, int y, Island island) {
 		if (island.getPlayer_Army_Kind() == 1) {
@@ -175,19 +181,19 @@ public class MapView extends JFrame {
 		lblNewLabel_14.setBounds(32, 492, 88, 18);
 		panel.add(lblNewLabel_14);
 
-		JButton conscriptionButton = new JButton("50$");
+		conscriptionButton = new JButton("50$");
 		conscriptionButton.setBounds(32, 524, 70, 27);
 		panel.add(conscriptionButton);
 
-		JButton cityButton = new JButton("40$");
+		cityButton = new JButton("40$");
 		cityButton.setBounds(32, 617, 70, 27);
 		panel.add(cityButton);
 
-		JButton commandButton = new JButton("100$");
+		commandButton = new JButton("100$");
 		commandButton.setBounds(32, 698, 70, 27);
 		panel.add(commandButton);
 
-		JButton hornButton = new JButton("70$");
+		hornButton = new JButton("70$");
 		hornButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -195,7 +201,7 @@ public class MapView extends JFrame {
 		hornButton.setBounds(32, 772, 70, 27);
 		panel.add(hornButton);
 
-		JButton capitalButton = new JButton("1000 $");
+		capitalButton = new JButton("1000 $");
 		capitalButton.setBounds(32, 841, 88, 27);
 		panel.add(capitalButton);
 	}
@@ -626,6 +632,28 @@ public class MapView extends JFrame {
 		
 		
 
+	}
+
+	public Component getconscriptionButton() {
+		// TODO Auto-generated method stub
+		return conscriptionButton;
+	}
+	public Component getcommandButton() {
+		// TODO Auto-generated method stub
+		return commandButton;
+	}
+	public Component gethornButton() {
+		// TODO Auto-generated method stub
+		return hornButton;
+	}
+	
+	public Component getCapitalButton() {
+		// TODO Auto-generated method stub
+		return capitalButton;
+	}
+	public Component getCityButton() {
+		// TODO Auto-generated method stub
+		return cityButton;
 	}
 }
 

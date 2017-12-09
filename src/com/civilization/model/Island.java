@@ -43,8 +43,11 @@ public class Island {
 		public void setIscapital(boolean iscapital) {
 			Iscapital = iscapital;
 		}
-		public void setConscription(int conscription) {
-			this.conscription = conscription;
+		public void setConscription() {
+			conscription++;
+		}
+		public void setConscription(int i) {
+			conscription=i;
 		}
 		public void setIscity(boolean iscity) {
 			this.iscity = iscity;
@@ -147,6 +150,7 @@ public class Island {
 	public void setIsland_Level(int island_Level) {
 		this.island_Level = island_Level;
 	}
+	
 }
 	//尚未设定每种岛的具体收入，所以用123代替，我觉得大概是主岛最高，大岛次之，小岛最少
 

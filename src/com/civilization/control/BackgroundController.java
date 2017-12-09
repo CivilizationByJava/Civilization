@@ -93,6 +93,8 @@ public class BackgroundController {
 
 		});
 
+		
+
 		// 鼠标移动 监听器 注册
 		mapView.addMouseMotionListener(new MouseMotionAdapter() {
 			public void mouseDragged(MouseEvent e) {
@@ -194,7 +196,67 @@ public class BackgroundController {
 			}
 
 		});
+		mapView.getconscriptionButton().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			if(game.getCurPlayer().getMoney()>=50&&lastClickIsland.getConscription()<5&&game.getCurPlayer().equals(lastClickIsland.getHostOfIsland()))
+			{
+				lastClickIsland.setConscription();
+				mapView.getIslandInfo(lastClickIsland);
+				game.getCurPlayer().setMoney(game.getCurPlayer().getMoney()-50);
+				mapView.showMoney();
+			}
+			}
+		});
+		mapView.getcommandButton().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			if(game.getCurPlayer().getMoney()>=100&&lastClickIsland.getCommand()<1&&game.getCurPlayer().equals(lastClickIsland.getHostOfIsland()))
+			{
+				lastClickIsland.setCommand(1);
+				mapView.getIslandInfo(lastClickIsland);
+				game.getCurPlayer().setMoney(game.getCurPlayer().getMoney()-100);
+				mapView.showMoney();
+			}
+			}
+		});
+		mapView.gethornButton().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			if(game.getCurPlayer().getMoney()>=70&&lastClickIsland.getHorn()<1&&game.getCurPlayer().equals(lastClickIsland.getHostOfIsland()))
+			{
+				lastClickIsland.setHorn(1);
+				mapView.getIslandInfo(lastClickIsland);
+				game.getCurPlayer().setMoney(game.getCurPlayer().getMoney()-70);
+				mapView.showMoney();
+			}
+			}
+		});
+		mapView.getCapitalButton().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			if(game.getCurPlayer().getMoney()>=1000&&lastClickIsland.isIscapital()==false&&game.getCurPlayer().equals(lastClickIsland.getHostOfIsland()))
+			{
+				lastClickIsland.setIscapital(true);
+				mapView.getIslandInfo(lastClickIsland);
+				game.getCurPlayer().setMoney(game.getCurPlayer().getMoney()-1000);
+				mapView.showMoney();
+			}
+			}
+		});
 
+		mapView.getCityButton().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			if(game.getCurPlayer().getMoney()>=40&&lastClickIsland.isIscity()==false&&game.getCurPlayer().equals(lastClickIsland.getHostOfIsland()))
+			{
+				lastClickIsland.setIscity(true);
+				mapView.getIslandInfo(lastClickIsland);
+				game.getCurPlayer().setMoney(game.getCurPlayer().getMoney()-40);
+				mapView.showMoney();
+			}
+			}
+		});
 		addShopListener();
 
 	}
