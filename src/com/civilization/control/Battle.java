@@ -23,7 +23,6 @@ public class Battle {
 	Ship_1 s1 = new Ship_1();
 	Ship_2 s2 = new Ship_2();
 	Ship_3 s3 = new Ship_3();
-
 	// 参数： 攻击方岛屿 防御方岛屿 派出军队数量
 	public int Player_Atk_Army(Island I_atk, Island I_def)// 最后一个参数最大为5
 	{
@@ -54,7 +53,7 @@ public class Battle {
 
 		return I_def.getPlayer_Army_Kind();
 	}
-
+	
 	// 参数： 攻击方岛屿 防御方岛屿 攻击方兵种 防御方兵种
 	public void Attack(Island I_atk, Island I_def, int atk_Kind, int def_Kind) {
 
@@ -92,16 +91,14 @@ public class Battle {
 			def_atkMin = s3.getShip_Atk_min();
 			break;
 		}
-		int[] atk_Dam = { 0, 0, 0, 0, 0, 0 };
-		int[] def_Dam = { 0, 0, 0, 0, 0, 0 };
+		int[] atk_Dam = { 0, 0, 0, 0, 0 };
+		int[] def_Dam = { 0, 0, 0, 0, 0 };
 		for (int i = 0; i < Atk_Army_Num; i++) {
-			atk_Dam[i] = random.nextInt(atk_atkMax);
+			atk_Dam[i] = random.nextInt(atk_atkMax)+1;
 		}
-		if (def_atkMax != 0) {
-			for (int i = 0; i < Def_Army_Num; i++) {
-				def_Dam[i] = random.nextInt(def_atkMax);
-
-			}
+		System.out.println();
+		for (int i = 0; i < Def_Army_Num; i++) {
+			def_Dam[i] = random.nextInt(def_atkMax)+1;
 		}
 
 		// T 按伤害从高到低依次排列,假装已经排完序了
@@ -109,27 +106,27 @@ public class Battle {
 		int atk_GG_Num = 0;
 		int def_GG_Num = 0;
 		for (int i = 0; i <= Player_Atk_Army(I_atk, I_def) && i <= Player_Def_Army(I_def); i++) {
-			if (atk_Dam[i] >= def_Dam[i]) {
+			if (atk_Dam[i] > def_Dam[i]) {
 				def_GG_Num++;
 			}
-			if (atk_Dam[i] <= def_Dam[i]) {
+			if (atk_Dam[i] > def_Dam[i]) {
 				atk_GG_Num++;
 			}
 		}
-
-		int end1 = I_atk.getPlayer_Army_Num() - atk_GG_Num;
-		int end2 = I_def.getPlayer_Army_Num() - def_GG_Num;
-
-		if (end1 < 0) {
-			end1 = 0;
+		
+		int am1=I_atk.getPlayer_Army_Num() - atk_GG_Num;
+		int am2=I_def.getPlayer_Army_Num() - def_GG_Num;
+		if(am1<0) {
+			am1=0;
 		}
-		if (end2 < 0) {
-			end2 = 0;
+		if(am2<0) {
+			am2=0;
 		}
+		
 		// 一轮攻击后战斗结束，GG的单位减少
-		I_atk.setPlayer_Army_Num(end1);
+		I_atk.setPlayer_Army_Num(am1);
 
-		I_def.setPlayer_Army_Num(end2);
+		I_def.setPlayer_Army_Num(am2);
 	}
 
 	// 参数： 攻击方岛屿 防御方岛屿 攻击方兵种 防御方兵种 派出军队数量 这个函数是上面三个的整合，所以参数也比较多
