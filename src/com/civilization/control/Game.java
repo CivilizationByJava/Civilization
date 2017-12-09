@@ -1,11 +1,14 @@
 package com.civilization.control;
 
+import javax.swing.JOptionPane;
+
 import com.civilization.model.Player;
 
 public class Game {
 	//
-	private Player player1 = new Player();
-	private Player player2 = new Player();
+	private Player player1 = new Player("Player1");
+	private Player player2 = new Player("Player2");
+
 
 	//
 	private Player curPlayer = player1;
@@ -32,6 +35,7 @@ public class Game {
 		} else {
 			curPlayer = player1;
 		}
+
 		
 	}
 
